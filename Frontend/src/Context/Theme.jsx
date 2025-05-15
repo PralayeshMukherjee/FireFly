@@ -1,4 +1,10 @@
-import { Children, createContext, useEffect, useState } from "react";
+import {
+  Children,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 const ThemeContext = createContext();
 
@@ -19,4 +25,4 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-export const useTheme = () => useTheme(ThemeContext);
+export const useTheme = () => useContext(ThemeContext);
