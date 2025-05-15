@@ -1,5 +1,5 @@
 import { useTheme } from "../Context/Theme";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react"; // Import icons
 
 function ThemeBtn() {
   const { themeMode, lightTheme, darkTheme } = useTheme();

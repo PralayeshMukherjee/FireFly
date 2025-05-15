@@ -20,26 +20,26 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-16 bg-gradient-to-r from-blue-100 via-white to-blue-100">
-      <div className="w-full max-w-6xl grid grid-cols-2 gap-8 bg-white p-16 rounded-3xl shadow-2xl">
-        <div className="hidden md:flex flex-col justify-center bg-blue-600 text-white rounded-2xl p-12">
+    <div className="min-h-screen flex items-center justify-center px-16 bg-gradient-to-r from-blue-100 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="w-full max-w-6xl grid grid-cols-2 gap-8 bg-white p-16 rounded-3xl shadow-2xl dark:bg-gray-900">
+        <div className="hidden md:flex flex-col justify-center bg-blue-600 text-white rounded-2xl p-12 dark:bg-gray-800">
           <h2 className="text-5xl font-bold mb-6">Welcome Back!</h2>
           <p className="text-xl">
             Log in to access your dashboard and manage your account.
           </p>
         </div>
         <div className="col-span-2 md:col-span-1">
-          <h2 className="text-4xl font-extrabold text-gray-800 mb-10 text-center">
+          <h2 className="text-4xl font-extrabold text-gray-800 mb-10 text-center dark:text-white">
             Sign in to Your Account
           </h2>
           <form onSubmit={handleLogin} className="space-y-8">
             <div>
-              <label className="block mb-2 text-lg font-medium text-gray-700">
+              <label className="block mb-2 text-lg font-medium text-gray-700 dark:text-gray-300">
                 Email Address
               </label>
               <input
                 type="email"
-                className="w-full px-5 py-4 border border-gray-300 bg-white text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-5 py-4 border border-gray-300 bg-white text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -47,23 +47,26 @@ const LoginPage = () => {
               />
             </div>
             <div>
-              <label className="block mb-2 text-lg font-medium text-gray-700">
+              <label className="block mb-2 text-lg font-medium text-gray-700 dark:text-gray-300">
                 Password
               </label>
               <input
                 type="password"
-                className="w-full px-5 py-4 border border-gray-300 bg-white text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-5 py-4 border border-gray-300 bg-white text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="••••••••"
               />
             </div>
-            <div className="flex justify-between text-sm text-gray-500">
+            <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
               <label className="flex items-center">
                 <input type="checkbox" className="mr-2" /> Remember me
               </label>
-              <a href="#" className="text-blue-600 hover:underline">
+              <a
+                href="#"
+                className="text-blue-600 hover:underline dark:text-blue-400"
+              >
                 Forgot password?
               </a>
             </div>
@@ -78,21 +81,24 @@ const LoginPage = () => {
           <div className="mt-8 flex flex-col gap-4">
             <button
               onClick={handleGoogleLogin}
-              className="flex items-center justify-center gap-3 py-3 border border-gray-300 rounded-xl bg-white text-black hover:bg-gray-100 transition text-lg"
+              className="flex items-center justify-center gap-3 py-3 border border-gray-300 rounded-xl bg-white text-black hover:bg-gray-100 transition text-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700"
             >
               <FcGoogle className="text-2xl" /> Sign in with Google
             </button>
             <button
               onClick={handleGithubLogin}
-              className="flex items-center justify-center gap-3 py-3 border border-gray-300 rounded-xl bg-white text-black hover:bg-gray-100 transition text-lg"
+              className="flex items-center justify-center gap-3 py-3 border border-gray-300 rounded-xl bg-white text-black hover:bg-gray-100 transition text-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700"
             >
               <FaGithub className="text-2xl" /> Sign in with GitHub
             </button>
           </div>
 
-          <p className="mt-10 text-center text-sm text-gray-600">
+          <p className="mt-10 text-center text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{" "}
-            <a href="#" className="text-blue-600 hover:underline">
+            <a
+              href="#"
+              className="text-blue-600 hover:underline dark:text-blue-400"
+            >
               Sign up
             </a>
           </p>

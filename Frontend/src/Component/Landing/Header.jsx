@@ -5,10 +5,7 @@ import ThemeBtn from "../ThemeBtn";
 export default function Header() {
   return (
     <header className="shadow sticky z-50 top-0">
-      <nav
-        className="bg-black-700 border-gray-200 px-4 lg:px-6 py-2"
-        style={{ background: "black" }}
-      >
+      <nav className="bg-violet-600 border-gray-200 px-4 lg:px-6 py-2">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
             {/* <img src={Library} className="mr-2 w-25 h-20" alt="Library" /> */}
