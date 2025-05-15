@@ -1,5 +1,6 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
+import homePageSvg from "../../assets/homePageSvg.svg";
 
 const Home = () => {
   return (
@@ -30,7 +31,7 @@ const Home = () => {
       {/* Right Section - Illustration */}
       <div className="md:w-1/2 w-full flex justify-center">
         <img
-          src="/medical-illustration.png"
+          src={homePageSvg}
           alt="Medical care illustration"
           className="w-full max-w-md"
         />
