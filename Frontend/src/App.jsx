@@ -7,12 +7,14 @@ import {
 import "./App.css";
 import { ThemeProvider } from "./Context/Theme";
 import LoginPage from "./Component/LoginPage";
+import Layout from "./Layout";
 
 function App() {
   const MyRouter = createBrowserRouter(
     createRoutesFromChildren(
       <>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<Layout />} />
+        <Route path="/Login" element={<LoginPage />} />
       </>
     )
   );
