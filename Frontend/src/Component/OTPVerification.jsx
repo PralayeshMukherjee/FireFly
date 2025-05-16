@@ -102,7 +102,10 @@ const OTPVerification = () => {
 
           <p className="text-sm text-center mt-6 text-gray-600 dark:text-gray-300">
             Didn't receive the code?{" "}
-            <button className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+            <button
+              onClick={handleSubmit}
+              className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
+            >
               Resend OTP
             </button>
           </p>
