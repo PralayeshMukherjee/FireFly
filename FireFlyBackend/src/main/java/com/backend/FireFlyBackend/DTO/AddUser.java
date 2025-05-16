@@ -5,4 +5,6 @@ public class AddUser {
     private String emailId;
     private String password;
 
+    public AddUser() {
+    }
 }
