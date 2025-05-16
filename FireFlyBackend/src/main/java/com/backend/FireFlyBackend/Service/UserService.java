@@ -1,10 +1,12 @@
 package com.backend.FireFlyBackend.Service;
 
+import com.backend.FireFlyBackend.entity.UserEntity;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -73,6 +75,6 @@ public class UserService {
         }
     }
     public boolean successRegister(String name,String emailId,String password){
-
+        UserEntity userEntity = new UserEntity();
     }
 }
