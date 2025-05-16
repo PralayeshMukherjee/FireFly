@@ -3,37 +3,51 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [registerFormData, setRegisterFormData] = useState({
     name: "",
     emailId: "",
     password: "",
   });
+
   const handleChange = (e) => {
     setRegisterFormData({
       ...registerFormData,
       [e.target.name]: e.target.value,
     });
   };
+
   const handelSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:8080/user/registration", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(registerFormData),
-    });
-    const data = await response.json();
-    if (data.isSend) {
-      sessionStorage.setItem("isSend", true);
-      sessionStorage.setItem("emailId", registerFormData.emailId);
-      sessionStorage.setItem("name", registerFormData.name);
-      navigate("/OTPVerification");
-    } else {
-      sessionStorage.setItem("isSend", false);
-      alert("User already exists");
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:8080/user/registration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registerFormData),
+      });
+
+      const data = await response.json();
+
+      if (data.isSend) {
+        sessionStorage.setItem("isSend", true);
+        sessionStorage.setItem("emailId", registerFormData.emailId);
+        sessionStorage.setItem("name", registerFormData.name);
+        navigate("/OTPVerification");
+      } else {
+        sessionStorage.setItem("isSend", false);
+        alert("User already exists");
+      }
+    } catch (err) {
+      alert("Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-tr from-indigo-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
       <div className="flex w-full max-w-5xl bg-white dark:bg-gray-900 shadow-2xl rounded-3xl overflow-hidden">
@@ -95,11 +109,24 @@ const SignUp = () => {
             <button
               type="submit"
               onClick={handelSubmit}
-              className="w-full py-3 mt-6 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl text-lg font-semibold shadow-md hover:shadow-lg hover:from-indigo-600 hover:to-purple-600 transition-all duration-300"
+              disabled={loading}
+              className={`w-full py-3 mt-6 rounded-xl text-lg font-semibold shadow-md transition-all duration-300
+                ${
+                  loading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:shadow-lg hover:from-indigo-600 hover:to-purple-600"
+                }`}
             >
-              Create Account
+              {loading ? "Creating Account..." : "Create Account"}
             </button>
           </form>
+
+          {/* Loading message below the form */}
+          {loading && (
+            <div className="mt-4 text-center text-indigo-600 font-semibold">
+              Creating your account... Please wait ⏳
+            </div>
+          )}
 
           <div className="mt-6 flex items-center justify-between">
             <hr className="w-full border-gray-300 dark:border-gray-600" />

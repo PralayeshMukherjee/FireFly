@@ -16,7 +16,7 @@ public class SecurityConfig {
                 .cors(customizer -> customizer.disable()) // or `.cors(Customizer.withDefaults())` if you want to enable it
                 .csrf(csrf -> csrf.disable()) // ✅ disable CSRF for API endpoints
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/registration").permitAll() // ✅ Allow public access
+                        .requestMatchers("/user/**").permitAll() // ✅ Allow public access
                         .anyRequest().authenticated() // ✅ Everything else requires auth
                 );
 

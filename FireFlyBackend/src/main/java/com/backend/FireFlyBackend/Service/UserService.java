@@ -32,7 +32,7 @@ public class UserService {
     private JavaMailSender javaMailSender;
     public boolean sendOTPToEmail(String username,String email){
         try{
-            String otp = otpMapping.get(username);
+            String otp = otpMapping.get(email);
             System.out.println(otp);
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,true);

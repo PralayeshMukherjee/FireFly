@@ -18,7 +18,11 @@ public class UserController {
         String name = addUser.getName().trim();
         String emailId = addUser.getEmailId().trim();
         String password = addUser.getPassword().trim();
-        boolean isSend = userService.sendOTPToEmail(name,emailId);
+        boolean isGenrated = userService.generateOTP(emailId);
+        boolean isSend = false;
+        if(isGenrated){
+            isSend = userService.sendOTPToEmail(name,emailId);
+        }
         return Map.of("isSend",isSend);
     }
     @PostMapping("/verifyOtp")

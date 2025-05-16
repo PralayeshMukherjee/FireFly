@@ -12,7 +12,7 @@ const OTPVerification = () => {
     otp6: "",
   });
   useEffect(() => {
-    const isLoginUser = sessionStorage.getItem("isLogin") === "true";
+    const isLoginUser = sessionStorage.getItem("isSend") === "true";
     if (!isLoginUser) {
       console.log("No user is logged in. Redirecting to userLogin...");
       navigate("/Login", { replace: true });
@@ -36,8 +36,9 @@ const OTPVerification = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const fullOtp = Object.values(otp).join(""); // Combine to 6-digit OTP
+    console.log(fullOtp);
     const resposnse = await fetch(
-      `http://localhost:5173/user/verifyOtp?otp=${fullOtp}&emailId=${sessionStorage.getItem(
+      `http://localhost:8080/user/verifyOtp?otp=${fullOtp}&emailId=${sessionStorage.getItem(
         "emailId"
       )}&name=${sessionStorage.getItem("name")}`,
       {
@@ -48,11 +49,11 @@ const OTPVerification = () => {
       }
     );
     const data = await resposnse.json();
-    if (data.isVerified) {
-      sessionStorage.setItem("isVerified", true);
+    if (data.isVerfied) {
+      sessionStorage.setItem("isVerfied", true);
       alert("OTP verified successfully");
     } else {
-      sessionStorage.setItem("isVerified", false);
+      sessionStorage.setItem("isVerfied", false);
       alert("Invalid OTP");
     }
   };
