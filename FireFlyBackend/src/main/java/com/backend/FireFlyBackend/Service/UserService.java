@@ -1,6 +1,7 @@
 package com.backend.FireFlyBackend.Service;
 
 import com.backend.FireFlyBackend.entity.UserEntity;
+import com.backend.FireFlyBackend.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,8 @@ public class UserService {
     }
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
     public boolean successRegister(String name,String emailId,String password){
         UserEntity userEntity = new UserEntity();
         userEntity.setEmailId(emailId);
