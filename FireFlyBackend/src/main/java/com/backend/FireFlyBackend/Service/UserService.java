@@ -83,7 +83,13 @@ public class UserService {
         UserEntity userEntity = new UserEntity();
         userEntity.setEmailId(emailId);
         userEntity.setName(name);
-        userEntity.setName(passwordEncoder.encode(password));
-
+        try{
+            userEntity.setName(passwordEncoder.encode(password));
+            userRepository.save(userEntity);
+            return true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }
