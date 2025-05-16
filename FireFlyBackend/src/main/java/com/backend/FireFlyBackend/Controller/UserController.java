@@ -16,7 +16,7 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public Map<String,Boolean> addNewUser(@RequestBody AddUser addUser){
         String name = addUser.getName().trim();
         String emailId = addUser.getEmailId().trim();
