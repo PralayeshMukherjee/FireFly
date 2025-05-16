@@ -16,7 +16,7 @@ const Home = () => {
           </span>
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-[#5535ff] dark:text-yellow-400 mb-6 leading-tight">
-          Health Center for <br /> Medical Care
+          Health ChatBot <br /> Medical Care
         </h1>
         <p className="text-base text-gray-600 dark:text-gray-300 mb-8">
           We will explore the varied field of Medical Healthcare, covering
