@@ -21,6 +21,7 @@ public class UserController {
         boolean isSend = userService.sendOTPToEmail(name,emailId);
         return Map.of("isSend",isSend);
     }
+    @PostMapping("/verifyOtp")
     public Map<String,Boolean> verifyTheOTP(@RequestParam String otp,String emailId, String name){
         boolean isVerified = userService.verifyOTP(emailId,otp);
         return Map.of("isVerfied",isVerified);
