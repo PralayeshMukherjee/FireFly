@@ -1,4 +1,5 @@
 package com.backend.FireFlyBackend;
 
-public class Entity {
+
+public class UserEntity {
 }
