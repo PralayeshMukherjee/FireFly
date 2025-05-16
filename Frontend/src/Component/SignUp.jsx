@@ -25,7 +25,9 @@ const SignUp = () => {
     });
     const data = await response.json();
     if (data.isSend) {
-      sessionStorage.sessionStorage("isSend", true);
+      sessionStorage.setItem("isSend", true);
+      sessionStorage.setItem("emailId", registerFormData.emailId);
+      sessionStorage.setItem("name", registerFormData.name);
       navigate("/OTPVerification");
     } else {
       sessionStorage.setItem("isSend", false);

@@ -37,7 +37,9 @@ const OTPVerification = () => {
     e.preventDefault();
     const fullOtp = Object.values(otp).join(""); // Combine to 6-digit OTP
     const resposnse = await fetch(
-      `http://localhost:5173/user/verifyOtp?otp=${fullOtp}`,
+      `http://localhost:5173/user/verifyOtp?otp=${fullOtp}&emailId=${sessionStorage.getItem(
+        "emailId"
+      )}&name=${sessionStorage.getItem("name")}`,
       {
         method: "POST",
         headers: {

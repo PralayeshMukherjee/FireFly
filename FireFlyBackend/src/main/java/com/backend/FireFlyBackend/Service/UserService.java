@@ -60,16 +60,16 @@ public class UserService {
             return false;
         }
     }
-    public int verifyOTP(String username,String otp){
-        if(otpMapping.containsKey(username)){
-            if(otpMapping.get(username).equals(otp)){
-                otpMapping.remove(username);
-                return 2;
+    public boolean verifyOTP(String emailId, String otp){
+        if(otpMapping.containsKey(emailId)){
+            if(otpMapping.get(emailId).equals(otp)){
+                otpMapping.remove(emailId);
+                return true;
             }else{
-                return 1;
+                return false;
             }
         }else{
-            return 0;
+            return false;
         }
     }
 }

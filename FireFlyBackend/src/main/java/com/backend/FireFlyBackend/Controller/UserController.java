@@ -4,10 +4,7 @@ package com.backend.FireFlyBackend.Controller;
 import com.backend.FireFlyBackend.DTO.AddUser;
 import com.backend.FireFlyBackend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -23,5 +20,9 @@ public class UserController {
         String password = addUser.getPassword().trim();
         boolean isSend = userService.sendOTPToEmail(name,emailId);
         return Map.of("isSend",isSend);
+    }
+    public Map<String,Boolean> verifyTheOTP(@RequestParam String otp,String emailId, String name){
+        boolean isVerified = userService.verifyOTP(emailId,otp);
+        return Map.of("isVerfied",isVerified);
     }
 }
