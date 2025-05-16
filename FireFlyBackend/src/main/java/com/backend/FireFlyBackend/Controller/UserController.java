@@ -35,5 +35,7 @@ public class UserController {
         String name = addUser.getName();
         String emailId = addUser.getEmailId();
         String password = addUser.getPassword();
+        boolean isSuccessfullyRegister = userService.successRegister(name,emailId,password);
+        return Map.of("isSuccessfullyRegister",isSuccessfullyRegister);
     }
 }
