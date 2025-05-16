@@ -1,7 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [registerFormData, setRegisterFormData] = useState({
+    name: "",
+    emailId: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    setRegisterFormData({
+      ...registerFormData,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-tr from-indigo-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
       <div className="flex w-full max-w-5xl bg-white dark:bg-gray-900 shadow-2xl rounded-3xl overflow-hidden">
@@ -26,6 +38,8 @@ const SignUp = () => {
                 Full Name
               </label>
               <input
+                name="name"
+                onChange={handleChange}
                 type="text"
                 placeholder="John Doe"
                 className="mt-1 w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-300"
@@ -37,6 +51,8 @@ const SignUp = () => {
                 Email Address
               </label>
               <input
+                name="emailId"
+                onChange={handleChange}
                 type="email"
                 placeholder="you@example.com"
                 className="mt-1 w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-300"
@@ -48,6 +64,8 @@ const SignUp = () => {
                 Password
               </label>
               <input
+                name="password"
+                onChange={handleChange}
                 type="password"
                 placeholder="********"
                 className="mt-1 w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-300"
