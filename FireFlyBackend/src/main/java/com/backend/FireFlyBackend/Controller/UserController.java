@@ -32,6 +32,8 @@ public class UserController {
     }
     @PostMapping("/success")
     public Map<String,Boolean> successFullyRegister(@RequestBody AddUser addUser){
-
+        String name = addUser.getName();
+        String emailId = addUser.getEmailId();
+        String password = addUser.getPassword();
     }
 }
