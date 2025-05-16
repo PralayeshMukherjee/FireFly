@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -95,12 +96,12 @@ const LoginPage = () => {
 
           <p className="mt-10 text-center text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{" "}
-            <a
-              href="#"
+            <Link
+              to="/signup"
               className="text-blue-600 hover:underline dark:text-blue-400"
             >
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>
