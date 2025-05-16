@@ -14,6 +14,8 @@ import java.util.Map;
 public class UserController {
     @PostMapping("/register")
     public Map<String,Boolean> addNewUser(@RequestBody AddUser addUser){
-
+        String name = addUser.getName().trim();
+        String emailId = addUser.getEmailId().trim();
+        String password = addUser.getPassword().trim();
     }
 }
