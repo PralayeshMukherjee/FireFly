@@ -32,12 +32,26 @@ const OTPVerification = () => {
       [name]: value,
     }));
   };
+  const finalSubmit = async (formData) => {
+    const response = await fetch("http://localhost:8080/user/success", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    if (data.isSuccessfullyRegister) {
+      alert("User registered successfully");
+      sessionStorage.setItem("isSuccessfullyRegister", true);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const fullOtp = Object.values(otp).join(""); // Combine to 6-digit OTP
     console.log(fullOtp);
-    const resposnse = await fetch(
+    const response = await fetch(
       `http://localhost:8080/user/verifyOtp?otp=${fullOtp}&emailId=${sessionStorage.getItem(
         "emailId"
       )}&name=${sessionStorage.getItem("name")}`,
@@ -48,10 +62,16 @@ const OTPVerification = () => {
         },
       }
     );
-    const data = await resposnse.json();
+    const data = await response.json();
     if (data.isVerfied) {
       sessionStorage.setItem("isVerfied", true);
       alert("OTP verified successfully");
+      const updatedData = {
+        name: sessionStorage.getItem("name"),
+        emailId: sessionStorage.getItem("emailId"),
+        password: sessionStorage.getItem("password"),
+      };
+      finalSubmit(updatedData);
     } else {
       sessionStorage.setItem("isVerfied", false);
       alert("Invalid OTP");

@@ -1,22 +1,25 @@
 package com.backend.FireFlyBackend.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "User")
+@Table(name = "UserDB")
 public class UserEntity {
-    private String name;
     @Id
     private String emailId;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "password")
     private String password;
 
     public UserEntity() {
     }
 
-    public UserEntity(String username, String emailId, String password) {
-        this.name = username;
+    public UserEntity(String name, String emailId, String password) {
+        this.name = name;
         this.emailId = emailId;
         this.password = password;
     }

@@ -84,7 +84,7 @@ public class UserService {
         userEntity.setEmailId(emailId);
         userEntity.setName(name);
         try{
-            userEntity.setName(passwordEncoder.encode(password));
+            userEntity.setPassword(passwordEncoder.encode(password));
             userRepository.save(userEntity);
             return true;
         }catch (Exception e){

@@ -36,6 +36,7 @@ const SignUp = () => {
         sessionStorage.setItem("isSend", true);
         sessionStorage.setItem("emailId", registerFormData.emailId);
         sessionStorage.setItem("name", registerFormData.name);
+        sessionStorage.setItem("password", registerFormData.password);
         navigate("/OTPVerification");
       } else {
         sessionStorage.setItem("isSend", false);
