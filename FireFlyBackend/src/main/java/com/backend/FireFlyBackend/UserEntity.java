@@ -12,4 +12,12 @@ public class UserEntity {
     private String emailId;
     private String password;
 
+    public UserEntity() {
+    }
+
+    public UserEntity(String username, String emailId, String password) {
+        this.username = username;
+        this.emailId = emailId;
+        this.password = password;
+    }
 }
