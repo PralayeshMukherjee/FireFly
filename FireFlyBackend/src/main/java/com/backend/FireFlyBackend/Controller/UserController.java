@@ -30,4 +30,7 @@ public class UserController {
         boolean isVerified = userService.verifyOTP(emailId,otp);
         return Map.of("isVerfied",isVerified);
     }
+    public Map<String,Boolean> successFullyRegister(@RequestBody AddUser addUser){
+
+    }
 }
