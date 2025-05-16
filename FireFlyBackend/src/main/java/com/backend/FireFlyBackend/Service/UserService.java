@@ -72,4 +72,7 @@ public class UserService {
             return false;
         }
     }
+    public boolean successRegister(String name,String emailId,String password){
+
+    }
 }
