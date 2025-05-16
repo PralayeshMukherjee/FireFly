@@ -50,6 +50,7 @@ const OTPVerification = () => {
     const data = await resposnse.json();
     if (data.isVerified) {
       sessionStorage.setItem("isVerified", true);
+      alert("OTP verified successfully");
     } else {
       sessionStorage.setItem("isVerified", false);
       alert("Invalid OTP");

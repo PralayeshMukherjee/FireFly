@@ -16,7 +16,7 @@ const SignUp = () => {
   };
   const handelSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5173/user/registration", {
+    const response = await fetch("http://localhost:8080/user/registration", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
