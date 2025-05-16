@@ -1,4 +1,4 @@
-package com.backend.FireFlyBackend;
+package com.backend.FireFlyBackend.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
