@@ -6,7 +6,7 @@ import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -74,7 +74,13 @@ public class UserService {
             return false;
         }
     }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     public boolean successRegister(String name,String emailId,String password){
         UserEntity userEntity = new UserEntity();
+        userEntity.setEmailId(emailId);
+        userEntity.setName(name);
+        userEntity.setName(passwordEncoder.encode(password));
+
     }
 }
