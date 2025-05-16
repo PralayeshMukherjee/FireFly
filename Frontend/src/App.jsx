@@ -10,6 +10,7 @@ import LoginPage from "./Component/LoginPage";
 import Layout from "./Layout";
 import Home from "./Component/Landing/Home";
 import SignUp from "./Component/SignUp";
+import OTPVerification from "./Component/OTPVerification";
 
 function App() {
   const MyRouter = createBrowserRouter(
@@ -21,6 +22,7 @@ function App() {
         </Route>
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/OTPVerification" element={<OTPVerification />} />
       </>
     )
   );

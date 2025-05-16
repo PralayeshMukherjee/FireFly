@@ -92,6 +92,7 @@ const SignUp = () => {
 
             <button
               type="submit"
+              onClick={handelSubmit}
               className="w-full py-3 mt-6 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl text-lg font-semibold shadow-md hover:shadow-lg hover:from-indigo-600 hover:to-purple-600 transition-all duration-300"
             >
               Create Account
@@ -107,7 +108,7 @@ const SignUp = () => {
           </div>
 
           <div className="mt-6 space-y-3">
-            <button className="w-full flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
+            <button className="w-full flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 dark:text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
                 alt="Google"
@@ -116,7 +117,7 @@ const SignUp = () => {
               Sign up with Google
             </button>
 
-            <button className="w-full flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
+            <button className="w-full flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 dark:text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
               <img
                 src="https://www.svgrepo.com/show/512317/github-142.svg"
                 alt="GitHub"
