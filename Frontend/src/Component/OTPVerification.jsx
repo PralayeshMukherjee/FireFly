@@ -36,13 +36,15 @@ const OTPVerification = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const fullOtp = Object.values(otp).join(""); // Combine to 6-digit OTP
-    const resposnse = await fetch("http://localhost:5173/user/verifyOtp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ otp: fullOtp }),
-    });
+    const resposnse = await fetch(
+      `http://localhost:5173/user/verifyOtp?otp=${fullOtp}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await resposnse.json();
     if (data.isVerified) {
       sessionStorage.setItem("isVerified", true);
