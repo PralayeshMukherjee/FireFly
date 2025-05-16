@@ -21,6 +21,7 @@ public class UserController {
         String name = addUser.getName().trim();
         String emailId = addUser.getEmailId().trim();
         String password = addUser.getPassword().trim();
-        userService.generateOTP(emailId);
+        boolean isSend = userService.sendOTPToEmail(name,emailId);
+        return Map.of("isSend",isSend);
     }
 }
