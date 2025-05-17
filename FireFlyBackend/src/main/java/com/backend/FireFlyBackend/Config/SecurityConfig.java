@@ -24,7 +24,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/","/login**").permitAll()// ✅ Allow public access
+                        .requestMatchers("/","/login**").permitAll()
+                        .requestMatchers("/check/**").permitAll()// ✅ Allow public access
                         .anyRequest().authenticated() // ✅ Everything else requires auth
                 )
                 .oauth2Login(oauth->oauth
