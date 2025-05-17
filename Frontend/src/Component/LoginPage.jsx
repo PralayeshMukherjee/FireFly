@@ -1,17 +1,39 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    emailId: "",
+    password: "",
+  });
 
   const handleLogin = (e) => {
     e.preventDefault();
-    alert(`Logging in with ${email}`);
+    const response = fetch(
+      `http://localhost:8080/user/login?emailId=${formData.emailId}&password=${formData.password}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = response.json();
+    if (data.isLogin) {
+      sessionStorage.setItem("isLogin", true);
+      navigate("/chatbot", { replace: true });
+    }
   };
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleGoogleLogin = () => {
     alert("Google login clicked");
   };
@@ -19,7 +41,6 @@ const LoginPage = () => {
   const handleGithubLogin = () => {
     alert("GitHub login clicked");
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center px-16 bg-gradient-to-r from-blue-100 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="w-full max-w-6xl grid grid-cols-2 gap-8 bg-white p-16 rounded-3xl shadow-2xl dark:bg-gray-900">
@@ -40,9 +61,9 @@ const LoginPage = () => {
               </label>
               <input
                 type="email"
+                name="emailId"
                 className="w-full px-5 py-4 border border-gray-300 bg-white text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChange}
                 required
                 placeholder="you@example.com"
               />
@@ -53,9 +74,9 @@ const LoginPage = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 className="w-full px-5 py-4 border border-gray-300 bg-white text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleChange}
                 required
                 placeholder="••••••••"
               />
@@ -73,6 +94,7 @@ const LoginPage = () => {
             </div>
             <button
               type="submit"
+              onClick={handleLogin}
               className="w-full py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition duration-300 font-semibold text-lg"
             >
               Sign In

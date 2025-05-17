@@ -44,6 +44,7 @@ const OTPVerification = () => {
     if (data.isSuccessfullyRegister) {
       alert("User registered successfully");
       sessionStorage.setItem("isSuccessfullyRegister", true);
+      navigate("/chatbot", { replace: true });
     }
   };
 
