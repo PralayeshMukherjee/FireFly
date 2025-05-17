@@ -94,7 +94,7 @@ public class UserService {
         }
     }
 
-    public int SuccessfullyLogin(String emailId,String password){
+    public String SuccessfullyLogin(String emailId,String password){
         try{
             Optional<UserEntity> uE = userRepository.findById(emailId);
             UserEntity userEntity = null;
@@ -103,16 +103,16 @@ public class UserService {
                 String storedHashedPassword = userEntity.getPassword();
                 boolean isPasswordMatch = passwordEncoder.matches(password,storedHashedPassword);
                 if(isPasswordMatch){
-                    return 0;
+                    return "0";
                 }else{
-                    return 1;
+                    return "1";
                 }
             }else{
-                return 2;
+                return "2";
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return -1;
+            return "-1";
         }
     }
 }
