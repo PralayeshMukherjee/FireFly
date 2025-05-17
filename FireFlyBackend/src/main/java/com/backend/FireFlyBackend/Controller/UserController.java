@@ -38,7 +38,8 @@ public class UserController {
         boolean isSuccessfullyRegister = userService.successRegister(name,emailId,password);
         return Map.of("isSuccessfullyRegister",isSuccessfullyRegister);
     }
-    public Map<String,Boolean> LoginUser(@RequestParam String emailId, String password){
+    public Map<String,String> LoginUser(@RequestParam String emailId, String password){
         int result = userService.SuccessfullyLogin(emailId,password);
+
     }
 }
