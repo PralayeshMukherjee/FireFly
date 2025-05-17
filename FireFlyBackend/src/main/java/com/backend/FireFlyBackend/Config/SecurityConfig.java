@@ -20,11 +20,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/","/googleLogin**").permitAll()// ✅ Allow public access
+                        .requestMatchers("/","/login**").permitAll()// ✅ Allow public access
                         .anyRequest().authenticated() // ✅ Everything else requires auth
                 )
                 .oauth2Login(oauth->oauth
-                        .defaultSuccessUrl("/googleLogin",true));
+                        .defaultSuccessUrl("/home",true));
 
         return http.build();
     }
