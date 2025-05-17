@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -90,6 +91,23 @@ public class UserService {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public int SuccessfullyLogin(String emailId,String password){
+        Optional<UserEntity> uE = userRepository.findById(emailId);
+        UserEntity userEntity = null;
+        if(uE.isPresent()){
+            userEntity = uE.get();
+            String storedHashedPassword = userEntity.getPassword();
+            boolean isPasswordMatch = passwordEncoder.matches(password,storedHashedPassword);
+            if(isPasswordMatch){
+                return 0;
+            }else{
+                return 1;
+            }
+        }else{
+            return 2;
         }
     }
 }
