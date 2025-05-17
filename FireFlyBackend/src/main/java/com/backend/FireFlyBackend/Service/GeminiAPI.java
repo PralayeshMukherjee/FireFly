@@ -37,7 +37,7 @@ public class GeminiAPI {
         }else if(userMessage.contains("disease")){
             formattedPrompt = "explain and give me response in 50-60 words: "+ userMessage;
         }else{
-            formattedPrompt = "give me response in 50-60 words on the: "+userMessage;
+            formattedPrompt = "give me response in 50-60 words related to medicine or help care related topic on the: "+userMessage;
         }
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder.path("/models/gemini-2.0-flash:generateContent").queryParam("key", apiKey).build())
