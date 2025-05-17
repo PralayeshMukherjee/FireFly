@@ -16,6 +16,13 @@ const SignUp = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleGoogleLogin = () => {
+    alert("Google login clicked");
+  };
+
+  const handleGithubLogin = () => {
+    alert("GitHub login clicked");
+  };
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -138,7 +145,10 @@ const SignUp = () => {
           </div>
 
           <div className="mt-6 space-y-3">
-            <button className="w-full flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 dark:text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
+            <button
+              onClick={handleGoogleLogin}
+              className="w-full flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 dark:text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+            >
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
                 alt="Google"
@@ -147,7 +157,10 @@ const SignUp = () => {
               Sign up with Google
             </button>
 
-            <button className="w-full flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 dark:text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
+            <button
+              onClick={handleGithubLogin}
+              className="w-full flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 dark:text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+            >
               <img
                 src="https://www.svgrepo.com/show/512317/github-142.svg"
                 alt="GitHub"
