@@ -39,6 +39,6 @@ public class UserController {
         return Map.of("isSuccessfullyRegister",isSuccessfullyRegister);
     }
     public Map<String,Boolean> LoginUser(@RequestParam String emailId, String password){
-
+        int result = userService.SuccessfullyLogin(emailId,password);
     }
 }
