@@ -39,7 +39,7 @@ public class UserController {
         return Map.of("isSuccessfullyRegister",isSuccessfullyRegister);
     }
     public Map<String,String> LoginUser(@RequestParam String emailId, String password){
-        int result = userService.SuccessfullyLogin(emailId,password);
-
+        String result = userService.SuccessfullyLogin(emailId,password);
+        return Map.of("result",result);
     }
 }
