@@ -19,11 +19,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // ✅ disable CSRF for API endpoints
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()// ✅ Allow public access
+                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/","/googleLogin**").permitAll()// ✅ Allow public access
                         .anyRequest().authenticated() // ✅ Everything else requires auth
                 )
                 .oauth2Login(oauth->oauth
-                        .defaultSuccessUrl("/home",true));
+                        .defaultSuccessUrl("/googleLogin",true));
 
         return http.build();
     }
