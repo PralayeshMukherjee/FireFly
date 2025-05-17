@@ -111,7 +111,7 @@ const SignUp = () => {
               type="submit"
               onClick={handelSubmit}
               disabled={loading}
-              className={`w-full py-3 mt-6 rounded-xl text-lg font-semibold shadow-md transition-all duration-300
+              className={`w-full py-3 cursor-pointer mt-6 rounded-xl text-lg font-semibold shadow-md transition-all duration-300
                 ${
                   loading
                     ? "bg-gray-400 cursor-not-allowed"
