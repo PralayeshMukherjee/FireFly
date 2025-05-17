@@ -10,13 +10,13 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 public class APIController {
 
     @Autowired
     private GeminiAPI geminiAPI;
 
-    @PostMapping("chat")
+    @PostMapping("/chat")
     public Mono<Map<String,Object>> fireflyChat(@RequestBody String userMessage){
         return geminiAPI.chat(userMessage);
     }
