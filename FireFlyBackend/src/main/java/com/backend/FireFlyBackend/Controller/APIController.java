@@ -1,5 +1,6 @@
 package com.backend.FireFlyBackend.Controller;
 
+import com.backend.FireFlyBackend.DTO.ChatRequest;
 import com.backend.FireFlyBackend.Service.GeminiAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,8 @@ public class APIController {
     private GeminiAPI geminiAPI;
 
     @PostMapping("/chat")
-    public Mono<Map<String,Object>> fireflyChat(@RequestBody String userMessage){
+    public Mono<Map<String,Object>> fireflyChat(@RequestBody ChatRequest chatRequest){
+        String userMessage = chatRequest.getUsermessage();
         return geminiAPI.chat(userMessage);
     }
 }
