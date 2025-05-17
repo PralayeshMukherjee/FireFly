@@ -1,5 +1,7 @@
 package com.backend.FireFlyBackend.Config;
 
+import com.backend.FireFlyBackend.Service.CustomOAuth2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,6 +13,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -24,7 +28,9 @@ public class SecurityConfig {
                         .anyRequest().authenticated() // ✅ Everything else requires auth
                 )
                 .oauth2Login(oauth->oauth
-                        .defaultSuccessUrl("/home",true));
+                        .userInfoEndpoint(userInfo->userInfo
+                                .userService(customOAuth2UserService))
+                        .defaultSuccessUrl("http://localhost:5173/chatbot",true));
 
         return http.build();
     }
