@@ -18,5 +18,6 @@ public class APIController {
 
     @PostMapping("chat")
     public Mono<Map<String,Object>> fireflyChat(@RequestBody String userMessage){
+        return geminiAPI.chat(userMessage);
     }
 }
