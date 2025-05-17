@@ -12,19 +12,31 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const response = fetch(
-      `http://localhost:8080/user/login?emailId=${formData.emailId}&password=${formData.password}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    try {
+      const response = fetch(
+        `http://localhost:8080/user/login?emailId=${formData.emailId}&password=${formData.password}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = response.json();
+      if (data.result === "0") {
+        alert("Login successful");
+        sessionStorage.setItem("isLogin", true);
+        navigate("/chatbot", { replace: true });
+      } else if (data.result === "1") {
+        alert("Invalid password");
+      } else if (data.result === "2") {
+        alert("User not found");
+      } else {
+        alert("something went wrong");
       }
-    );
-    const data = response.json();
-    if (data.isLogin) {
-      sessionStorage.setItem("isLogin", true);
-      navigate("/chatbot", { replace: true });
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("An error occurred. Please try again later.");
     }
   };
 
