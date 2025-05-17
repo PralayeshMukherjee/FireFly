@@ -17,7 +17,7 @@ const SignUp = () => {
     });
   };
   const handleGoogleLogin = () => {
-    alert("Google login clicked");
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
   };
 
   const handleGithubLogin = () => {
@@ -147,7 +147,7 @@ const SignUp = () => {
           <div className="mt-6 space-y-3">
             <button
               onClick={handleGoogleLogin}
-              className="w-full flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 dark:text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+              className="w-full cursor-pointer flex items-center justify-center py-2 border-2 border-gray-200 dark:border-gray-700 dark:text-white rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
             >
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
