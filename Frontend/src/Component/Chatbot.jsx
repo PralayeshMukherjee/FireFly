@@ -30,22 +30,68 @@ const Chatbot = () => {
   useEffect(() => {
     const isSuccessfullyRegister =
       sessionStorage.getItem("isSuccessfullyRegister") === "true";
-    const isLoginUser = sessionStorage.getItem("isLogin") === "true";
 
-    if (!isSuccessfullyRegister && !isLoginUser) {
-      console.log("No user is logged in. Redirecting to userLogin...");
-      navigate("/Login", { replace: true });
-      return;
-    }
     if (isSuccessfullyRegister) {
-      console.log("Seller is logged in. Redirecting to MainHome...");
       return;
     }
-    if (isLoginUser) {
-      console.log("User is logged in. Allowing access.");
-      navigate("/Main/MainHome", { replace: true });
-    }
+
+    // If not a registered seller, check backend for OAuth login
+    fetch("http://localhost:8080/check/login", {
+      credentials: "include",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          console.log("No user logged in. Redirecting to Login...");
+          navigate("/Login", { replace: true });
+          return null;
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (!data) return;
+
+        console.log("User logged in via Google:", data);
+
+        sessionStorage.setItem("isLogin", "true");
+        sessionStorage.setItem("userEmail", data.email);
+        sessionStorage.setItem("userName", data.name);
+        sessionStorage.setItem("isGoogleUser", "true");
+
+        // Redirect based on role/email
+        if (data.email.endsWith("@gmail.com")) {
+          return;
+        } else {
+          navigate("/Login", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.error("Error checking login:", err);
+        navigate("/Login", { replace: true });
+      });
   }, []);
+
+  //   useEffect(() => {
+  //     const isSuccessfullyRegister =
+  //       sessionStorage.getItem("isSuccessfullyRegister") === "true";
+  //     const isLoginUser = sessionStorage.getItem("isLogin") === "true";
+
+  //     if (!isSuccessfullyRegister && !isLoginUser) {
+  //       console.log("No user is logged in. Redirecting to userLogin...");
+  //       navigate("/Login", { replace: true });
+  //       return;
+  //     }
+  //     if (isSuccessfullyRegister) {
+  //       console.log("Seller is logged in. Redirecting to MainHome...");
+  //       return;
+  //     }
+  //     if (isLoginUser) {
+  //       console.log("User is logged in. Allowing access.");
+  //     }
+  //   }, []);
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return; // ✅ Prevent spam or empty input

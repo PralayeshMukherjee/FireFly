@@ -47,7 +47,7 @@ const LoginPage = () => {
     });
   };
   const handleGoogleLogin = () => {
-    alert("Google login clicked");
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
   };
 
   const handleGithubLogin = () => {
