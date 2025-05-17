@@ -1,20 +1,20 @@
 package com.backend.FireFlyBackend.DTO;
 
 public class ChatRequest {
-    private String usermessage;
+    private String userMessage;
 
     public ChatRequest() {
     }
 
     public ChatRequest(String usermessage) {
-        this.usermessage = usermessage;
+        this.userMessage = usermessage;
     }
 
-    public String getUsermessage() {
-        return usermessage;
+    public String getUserMessage() {
+        return userMessage;
     }
 
-    public void setUsermessage(String usermessage) {
-        this.usermessage = usermessage;
+    public void setUserMessage(String userMessage) {
+        this.userMessage = userMessage;
     }
 }

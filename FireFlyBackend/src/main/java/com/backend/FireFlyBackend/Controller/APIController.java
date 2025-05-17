@@ -19,7 +19,8 @@ public class APIController {
 
     @PostMapping("/chat")
     public Mono<Map<String,Object>> fireflyChat(@RequestBody ChatRequest chatRequest){
-        String userMessage = chatRequest.getUsermessage();
+        String userMessage = chatRequest.getUserMessage();
+        System.out.println(userMessage);
         return geminiAPI.chat(userMessage);
     }
 }
