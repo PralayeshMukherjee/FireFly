@@ -10,10 +10,10 @@ const LoginPage = () => {
     password: "",
   });
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = fetch(
+      const response = await fetch(
         `http://localhost:8080/user/login?emailId=${formData.emailId}&password=${formData.password}`,
         {
           method: "POST",
@@ -22,7 +22,7 @@ const LoginPage = () => {
           },
         }
       );
-      const data = response.json();
+      const data = await response.json();
       if (data.result === "0") {
         alert("Login successful");
         sessionStorage.setItem("isLogin", true);
