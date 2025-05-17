@@ -29,7 +29,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
             UserEntity userEntity = new UserEntity();
             userEntity.setName(name);
             userEntity.setEmailId(email);
-            userEntity.setEmailId("GOOGLE_AUTH");
+            userEntity.setPassword("GOOGLE_AUTH");
 
             userRepository.save(userEntity);
         }
