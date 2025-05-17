@@ -21,7 +21,9 @@ public class SecurityConfig {
                         .requestMatchers("/user/**").permitAll()
                         .requestMatchers("/api/**").permitAll()// ✅ Allow public access
                         .anyRequest().authenticated() // ✅ Everything else requires auth
-                );
+                )
+                .oauth2Login(oauth->oauth
+                        .defaultSuccessUrl("/home",true));
 
         return http.build();
     }
