@@ -4,6 +4,7 @@ import com.backend.FireFlyBackend.Service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +20,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors(customizer -> customizer.disable()) // or `.cors(Customizer.withDefaults())` if you want to enable it
+                .cors(Customizer.withDefaults()) // or `.cors(Customizer.withDefaults())` if you want to enable it
                 .csrf(csrf -> csrf.disable()) // ✅ disable CSRF for API endpoints
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/**").permitAll()
