@@ -19,6 +19,7 @@ const Chatbot = () => {
   const [loading, setLoading] = useState(false); // ✅ Added
   const chatEndRef = useRef(null);
   const navigate = useNavigate();
+  const [previewImage, setPreviewImage] = useState(null);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -65,7 +66,22 @@ const Chatbot = () => {
         if (data.email.endsWith("@gmail.com")) {
           return;
         } else {
-          navigate("/Login", { replace: true });
+          const isSuccessfullyRegister =
+            sessionStorage.getItem("isSuccessfullyRegister") === "true";
+          const isLoginUser = sessionStorage.getItem("isLogin") === "true";
+
+          if (!isSuccessfullyRegister && !isLoginUser) {
+            console.log("No user is logged in. Redirecting to userLogin...");
+            navigate("/Login", { replace: true });
+            return;
+          }
+          if (isSuccessfullyRegister) {
+            console.log("Seller is logged in. Redirecting to MainHome...");
+            return;
+          }
+          if (isLoginUser) {
+            console.log("User is logged in. Allowing access.");
+          }
         }
       })
       .catch((err) => {
@@ -74,26 +90,14 @@ const Chatbot = () => {
       });
   }, []);
 
-  //   useEffect(() => {
-  //     const isSuccessfullyRegister =
-  //       sessionStorage.getItem("isSuccessfullyRegister") === "true";
-  //     const isLoginUser = sessionStorage.getItem("isLogin") === "true";
-
-  //     if (!isSuccessfullyRegister && !isLoginUser) {
-  //       console.log("No user is logged in. Redirecting to userLogin...");
-  //       navigate("/Login", { replace: true });
-  //       return;
-  //     }
-  //     if (isSuccessfullyRegister) {
-  //       console.log("Seller is logged in. Redirecting to MainHome...");
-  //       return;
-  //     }
-  //     if (isLoginUser) {
-  //       console.log("User is logged in. Allowing access.");
-  //     }
-  //   }, []);
+  // useEffect(() => {}, []);
 
   const sendMessage = async () => {
+    if (previewImage) {
+      setMessages((prev) => [...prev, { sender: "user", image: previewImage }]);
+      setPreviewImage(null); // clear after sending
+    }
+
     if (!input.trim() || loading) return; // ✅ Prevent spam or empty input
 
     const currentInput = input;
@@ -263,27 +267,32 @@ const Chatbot = () => {
         <div ref={chatEndRef} />
       </div>
 
-      <div className="p-4 border-t bg-white dark:bg-gray-900 dark:border-gray-700 flex gap-3 items-center">
-        <input
-          type="text"
-          className="flex-1 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-full px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm shadow-sm"
-          placeholder={
-            loading ? "Please wait for response..." : "Type your message..."
-          }
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          disabled={loading} // ✅ Disable input
-        />
-        <button
-          className={`bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-3 rounded-full shadow-lg transform transition duration-300 ${
-            loading ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
-          }`}
-          onClick={sendMessage}
-          disabled={loading} // ✅ Disable button
-        >
-          <Send size={20} />
-        </button>
+      <div className="p-4 border-t bg-white dark:bg-gray-900 dark:border-gray-700">
+        <div className="flex gap-3 items-center">
+          {/* Text Input */}
+          <input
+            type="text"
+            className="flex-1 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-full px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm shadow-sm"
+            placeholder={
+              loading ? "Please wait for response..." : "Type your message..."
+            }
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={loading}
+          />
+
+          {/* Send Button */}
+          <button
+            className={`bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-3 rounded-full shadow-lg transform transition duration-300 ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:scale-105"
+            }`}
+            onClick={sendMessage}
+            disabled={loading}
+          >
+            <Send size={20} />
+          </button>
+        </div>
       </div>
     </div>
   );
