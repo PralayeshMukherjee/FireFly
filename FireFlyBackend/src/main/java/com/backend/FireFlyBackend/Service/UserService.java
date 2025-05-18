@@ -45,16 +45,27 @@ public class UserService {
             messageHelper.setTo(email);
             messageHelper.setSubject("OTP for our Verification: TEAM LIBRARY");
             messageHelper.setText(
-                    "<html><div>" +
-                            "<h1 style='font-size:24px;'>Welcome to The Librarian, " + username + "!</h1>" +
-                            "<p style='font-size:20px;'>Your OTP is: <strong>" + otp + "</strong></p>" +
-                            "<p style='font-size:16px; color:red; display: inline-block;'><strong>Security Notice:</strong></p>" +
-                            "<ul style='font-size:14px; color:#555;'>" +
-                            "<li>Never share your OTP with anyone, including Librarian staff.</li>" +
-                            "<li>The OTP is valid for a limited time and can only be used once.</li>" +
-                            "<li>If you did not request this OTP, please ignore this email.</li>" +
+                    "<html>" +
+                            "<body style='font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;'>" +
+                            "<div style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);'>" +
+                            "<div style='text-align: center; margin-bottom: 20px;'>" +
+                            "<img src='/images/fireflyLogo.png' alt='Team FireFly Logo' style='height: 60px; margin-bottom: 10px;' />" +
+                            "<h1 style='font-size: 26px; color: #333;'>Welcome to Team FireFly, " + username + "!</h1>" +
+                            "</div>" +
+                            "<p style='font-size: 18px; color: #555;'>We're excited to have you on board. Use the OTP below to complete your verification process:</p>" +
+                            "<div style='text-align: center; margin: 20px 0;'>" +
+                            "<p style='font-size: 22px; font-weight: bold; color: #1a73e8;'>" + otp + "</p>" +
+                            "</div>" +
+                            "<p style='font-size: 16px; color: #d93025;'><strong>Security Notice:</strong></p>" +
+                            "<ul style='font-size: 14px; color: #555; padding-left: 20px;'>" +
+                            "<li>Never share your OTP with anyone, including Team FireFly staff.</li>" +
+                            "<li>This OTP is valid for a limited time and can only be used once.</li>" +
+                            "<li>If you did not request this OTP, please disregard this email.</li>" +
                             "</ul>" +
-                            "</div></html>",
+                            "<p style='font-size: 14px; color: #999; text-align: center; margin-top: 30px;'>© 2025 Team FireFly. All rights reserved.</p>" +
+                            "</div>" +
+                            "</body>" +
+                            "</html>",
                     true
             );
             javaMailSender.send(mimeMessage);

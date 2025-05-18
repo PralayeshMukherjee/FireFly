@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import ThemeBtn from "../ThemeBtn";
+import fireflyLogo from "../../assets/fireflyLogo.png";
 
 export default function Header() {
   return (
@@ -8,7 +9,11 @@ export default function Header() {
       <nav className="bg-violet-600 border-gray-200 px-4 lg:px-6 py-2">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
-            {/* <img src={Library} className="mr-2 w-25 h-20" alt="Library" /> */}
+            <img
+              src={fireflyLogo}
+              className="mr-2 w-25 h-20 rounded-full"
+              alt="Library"
+            />
           </Link>
           <div className="flex items-center lg:order-2">
             <ThemeBtn />

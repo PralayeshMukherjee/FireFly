@@ -136,14 +136,24 @@ const Chatbot = () => {
       setMessages((prev) => {
         const updated = [...prev];
         updated.pop(); // remove "Typing..."
-        return [...updated, { text: botMessage, sender: "bot" }];
+        return [
+          ...updated,
+          { text: botMessage, sender: "bot" },
+          { sender: "bot", text: "💬 Anything else? I’m here to help you." },
+        ];
       });
     } catch (error) {
       console.error("Error:", error);
       setMessages((prev) => {
         const updated = [...prev];
         updated.pop(); // remove "Typing..."
-        return [...updated, { text: "Error fetching response", sender: "bot" }];
+        return [
+          ...updated,
+          {
+            text: "❌ Sorry, something went wrong. Please try again.",
+            sender: "bot",
+          },
+        ];
       });
     } finally {
       setLoading(false); // ✅ Done loading
@@ -157,6 +167,34 @@ const Chatbot = () => {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const parseMarkdown = (text) => {
+    const boldRegex = /\*\*(.*?)\*\*/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = boldRegex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      parts.push(<strong key={match.index}>{match[1]}</strong>);
+      lastIndex = boldRegex.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    return parts;
+  };
+  const replaceWithEmoji = (text) => {
+    return text
+      .replace(/fever/gi, "🌡️ fever")
+      .replace(/pain/gi, "💊 pain")
+      .replace(/inflammation/gi, "🔥 inflammation")
+      .replace(/doctor/gi, "👨‍⚕️ doctor");
+  };
 
   return (
     <div className="flex flex-col w-screen h-screen border-none rounded-none shadow-none bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
@@ -254,16 +292,44 @@ const Chatbot = () => {
             }`}
           >
             <div
-              className={`px-5 py-3 rounded-2xl text-sm font-medium shadow-md max-w-sm ${
+              className={`px-5 py-3 rounded-2xl text-sm font-medium shadow-md max-w-sm whitespace-pre-wrap ${
                 msg.sender === "user"
                   ? "bg-blue-500 text-white rounded-br-none"
                   : "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-100 rounded-bl-none"
               }`}
             >
-              {msg.text}
+              {msg.sender === "bot" && msg.text.includes("*") ? (
+                <div>
+                  {msg.text.split("\n").map((line, index) => {
+                    const trimmed = line.trim();
+                    return trimmed.startsWith("*") ? (
+                      <li key={index} className="list-disc ml-4">
+                        {parseMarkdown(
+                          replaceWithEmoji(trimmed.substring(1).trim())
+                        )}
+                      </li>
+                    ) : (
+                      <p key={index} className="mb-1">
+                        {parseMarkdown(replaceWithEmoji(trimmed))}
+                      </p>
+                    );
+                  })}
+                </div>
+              ) : (
+                parseMarkdown(replaceWithEmoji(msg.text))
+              )}
             </div>
           </div>
         ))}
+
+        {messages[messages.length - 1]?.sender === "user" && (
+          <div className="flex justify-start">
+            <div className="px-5 py-3 rounded-2xl text-sm font-medium shadow-md max-w-sm bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-100 rounded-bl-none">
+              I'm here to help you 😊 Anything else?
+            </div>
+          </div>
+        )}
+
         <div ref={chatEndRef} />
       </div>
 

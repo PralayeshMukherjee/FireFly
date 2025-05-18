@@ -121,7 +121,7 @@ const SignUp = () => {
               className={`w-full py-3 cursor-pointer mt-6 rounded-xl text-lg font-semibold shadow-md transition-all duration-300
                 ${
                   loading
-                    ? "bg-gray-400 cursor-not-allowed"
+                    ? "bg-gray-400 cursor-progress"
                     : "bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:shadow-lg hover:from-indigo-600 hover:to-purple-600"
                 }`}
             >
