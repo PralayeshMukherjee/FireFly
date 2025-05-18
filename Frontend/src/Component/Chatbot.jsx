@@ -168,7 +168,7 @@ const Chatbot = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const parseMarkdown = (text) => {
+  const parseMarkdown = (text, isSummary = false) => {
     const boldRegex = /\*\*(.*?)\*\*/g;
     const parts = [];
     let lastIndex = 0;
@@ -186,14 +186,37 @@ const Chatbot = () => {
       parts.push(text.substring(lastIndex));
     }
 
+    // ✅ Add the emoji only for summary and return a paragraph
+    if (isSummary) {
+      return (
+        <p className="mb-1">
+          <span className="mr-1">✅</span>
+          {parts}
+        </p>
+      );
+    }
+
     return parts;
   };
+
   const replaceWithEmoji = (text) => {
     return text
       .replace(/fever/gi, "🌡️ fever")
       .replace(/pain/gi, "💊 pain")
       .replace(/inflammation/gi, "🔥 inflammation")
-      .replace(/doctor/gi, "👨‍⚕️ doctor");
+      .replace(/doctor/gi, "👨‍⚕️ doctor")
+      .replace(/medicine/gi, "💊 medicine")
+      .replace(/hydration|hydrate/gi, "💧 hydration")
+      .replace(/water/gi, "🚰 water")
+      .replace(/recovery/gi, "🛌 recovery")
+      .replace(/headache/gi, "🤕 headache")
+      .replace(/nausea/gi, "🤢 nausea")
+      .replace(/vomiting/gi, "🤮 vomiting")
+      .replace(/cough/gi, "🤧 cough")
+      .replace(/rest/gi, "🛏️ rest")
+      .replace(/sick|illness/gi, "🤒 sick")
+      .replace(/hospital/gi, "🏥 hospital")
+      .replace(/summary/gi, "✅ Summary");
   };
 
   return (
@@ -284,43 +307,43 @@ const Chatbot = () => {
       </div>
 
       <div className="flex-1 px-6 py-4 overflow-y-auto space-y-6 bg-white dark:bg-gray-900">
-        {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            className={`flex ${
-              msg.sender === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
+        {messages.map((msg, idx) => {
+          const text = msg.text.trim();
+          const isBullet = text.startsWith("*");
+          const content = isBullet ? text.substring(1).trim() : text;
+          const isSummary = content.toLowerCase().startsWith("summary");
+
+          return (
             <div
-              className={`px-5 py-3 rounded-2xl text-sm font-medium shadow-md max-w-sm whitespace-pre-wrap ${
-                msg.sender === "user"
-                  ? "bg-blue-500 text-white rounded-br-none"
-                  : "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-100 rounded-bl-none"
+              key={idx}
+              className={`flex ${
+                msg.sender === "user" ? "justify-end" : "justify-start"
               }`}
             >
-              {msg.sender === "bot" && msg.text.includes("*") ? (
-                <div>
-                  {msg.text.split("\n").map((line, index) => {
-                    const trimmed = line.trim();
-                    return trimmed.startsWith("*") ? (
-                      <li key={index} className="list-disc ml-4">
-                        {parseMarkdown(
-                          replaceWithEmoji(trimmed.substring(1).trim())
-                        )}
-                      </li>
-                    ) : (
-                      <p key={index} className="mb-1">
-                        {parseMarkdown(replaceWithEmoji(trimmed))}
-                      </p>
-                    );
-                  })}
-                </div>
-              ) : (
-                parseMarkdown(replaceWithEmoji(msg.text))
-              )}
+              <div
+                className={`px-5 py-3 rounded-2xl text-sm font-medium shadow-md max-w-sm whitespace-pre-wrap ${
+                  msg.sender === "user"
+                    ? "bg-blue-500 text-white rounded-br-none"
+                    : "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-100 rounded-bl-none"
+                }`}
+              >
+                {msg.sender === "bot" ? (
+                  isBullet ? (
+                    <li className="list-disc ml-4">
+                      {parseMarkdown(replaceWithEmoji(content), isSummary)}
+                    </li>
+                  ) : (
+                    <p className="mb-1">
+                      {parseMarkdown(replaceWithEmoji(text))}
+                    </p>
+                  )
+                ) : (
+                  parseMarkdown(replaceWithEmoji(msg.text))
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {messages[messages.length - 1]?.sender === "user" && (
           <div className="flex justify-start">
