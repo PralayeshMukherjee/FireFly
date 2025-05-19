@@ -92,38 +92,271 @@ const Chatbot = () => {
 
   // useEffect(() => {}, []);
 
+  // const sendMessage = async () => {
+  //   if (previewImage) {
+  //     setMessages((prev) => [...prev, { sender: "user", image: previewImage }]);
+  //     setPreviewImage(null); // clear after sending
+  //   }
+
+  //   if (!input.trim() || loading) return; // ✅ Prevent spam or empty input
+
+  //   const currentInput = input;
+  //   setInput("");
+  //   setMessages((prev) => [...prev, { text: currentInput, sender: "user" }]);
+  //   setLoading(true); // ✅ Start loading
+
+  //   // ✅ Show "Typing..." message
+  //   setMessages((prev) => [...prev, { text: "Typing...", sender: "bot" }]);
+
+  //   try {
+  //     const response = await fetch("http://localhost:8080/api/chat", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ userMessage: currentInput }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`Server error: ${response.status}`);
+  //     }
+
+  //     const data = await response.json();
+  //     console.log("API Response:", data);
+
+  //     let botMessage = "No response found.";
+
+  //     if (data?.response) {
+  //       botMessage = data.response;
+  //     } else if (
+  //       data?.candidates?.length > 0 &&
+  //       data.candidates[0]?.content?.parts?.length > 0
+  //     ) {
+  //       botMessage = data.candidates[0].content.parts[0].text;
+  //     }
+
+  //     setMessages((prev) => {
+  //       const updated = [...prev];
+  //       updated.pop(); // remove "Typing..."
+  //       return [
+  //         ...updated,
+  //         { text: botMessage, sender: "bot" },
+  //         { sender: "bot", text: "💬 Anything else? I’m here to help you." },
+  //       ];
+  //     });
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     setMessages((prev) => {
+  //       const updated = [...prev];
+  //       updated.pop(); // remove "Typing..."
+  //       return [
+  //         ...updated,
+  //         {
+  //           text: "❌ Sorry, something went wrong. Please try again.",
+  //           sender: "bot",
+  //         },
+  //       ];
+  //     });
+  //   } finally {
+  //     setLoading(false); // ✅ Done loading
+  //   }
+  // };
+
   const sendMessage = async () => {
     if (previewImage) {
       setMessages((prev) => [...prev, { sender: "user", image: previewImage }]);
-      setPreviewImage(null); // clear after sending
+      setPreviewImage(null);
     }
 
-    if (!input.trim() || loading) return; // ✅ Prevent spam or empty input
+    if (!input.trim() || loading) return;
 
-    const currentInput = input;
+    const currentInput = input.trim();
     setInput("");
     setMessages((prev) => [...prev, { text: currentInput, sender: "user" }]);
-    setLoading(true); // ✅ Start loading
 
-    // ✅ Show "Typing..." message
+    // 👇 Medicine Flow
+    if (conversationStage === "medicine") {
+      if (!contextData.age) {
+        setContextData({ ...contextData, age: currentInput });
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "What's your gender?" },
+        ]);
+        return;
+      }
+      if (!contextData.gender) {
+        setContextData({ ...contextData, gender: currentInput.toLowerCase() });
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "Are you allergic to any medicine?" },
+        ]);
+        return;
+      }
+      if (!contextData.allergies) {
+        setContextData({ ...contextData, allergies: currentInput });
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Do you have any existing medical conditions (e.g., diabetes, asthma)?",
+          },
+        ]);
+        return;
+      }
+      if (!contextData.conditions) {
+        setContextData({ ...contextData, conditions: currentInput });
+
+        const enriched = `${pendingQuery} for ${contextData.age} year old ${contextData.gender}. Allergies: ${contextData.allergies}. Conditions: ${currentInput}`;
+        sendToApi(enriched);
+        resetConversation();
+        return;
+      }
+    }
+
+    // 👇 Doctor Flow
+    if (conversationStage === "doctor") {
+      if (!contextData.city) {
+        setContextData({ ...contextData, city: currentInput });
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "What's your age?" },
+        ]);
+        return;
+      }
+      if (!contextData.age) {
+        setContextData({ ...contextData, age: currentInput });
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "What's your gender?" },
+        ]);
+        return;
+      }
+      if (!contextData.gender) {
+        setContextData({ ...contextData, gender: currentInput.toLowerCase() });
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "Preferred language for consultation?" },
+        ]);
+        return;
+      }
+      if (!contextData.language) {
+        setContextData({ ...contextData, language: currentInput });
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Do you want a general physician or a specialist?",
+          },
+        ]);
+        return;
+      }
+      if (!contextData.type) {
+        const enriched = `${pendingQuery} in ${contextData.city}, ${contextData.age} year old ${contextData.gender}. Language: ${contextData.language}. Need: ${currentInput}`;
+        sendToApi(enriched);
+        resetConversation();
+        return;
+      }
+    }
+
+    // 👇 Symptom Check Flow
+    if (conversationStage === "symptom-check") {
+      if (!contextData.duration) {
+        setContextData({ ...contextData, duration: currentInput });
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "What's your age?" },
+        ]);
+        return;
+      }
+      if (!contextData.age) {
+        setContextData({ ...contextData, age: currentInput });
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "What's your gender?" },
+        ]);
+        return;
+      }
+      if (!contextData.gender) {
+        setContextData({ ...contextData, gender: currentInput.toLowerCase() });
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "Do you have a fever? (yes/no)" },
+        ]);
+        return;
+      }
+      if (!contextData.fever) {
+        setContextData({ ...contextData, fever: currentInput.toLowerCase() });
+        setMessages((prev) => [
+          ...prev,
+          { sender: "bot", text: "Rate your pain on a scale of 1–10" },
+        ]);
+        return;
+      }
+      if (!contextData.painLevel) {
+        const enriched = `${pendingQuery} — symptoms for ${contextData.duration}, ${contextData.age} year old ${contextData.gender}, fever: ${contextData.fever}, pain level: ${currentInput}`;
+        sendToApi(enriched);
+        resetConversation();
+        return;
+      }
+    }
+
+    // 👇 Trigger Query Recognition
+    if (/suggest.*fever.*medicine/i.test(currentInput)) {
+      setConversationStage("medicine");
+      setPendingQuery(currentInput);
+      setContextData({});
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "What's your age?" },
+      ]);
+      return;
+    }
+
+    if (/recommend.*doctor/i.test(currentInput)) {
+      setConversationStage("doctor");
+      setPendingQuery(currentInput);
+      setContextData({});
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "Which city are you in?" },
+      ]);
+      return;
+    }
+
+    if (
+      /what.*reason.*(pain|vomiting|rash|dizzy|headache)/i.test(currentInput)
+    ) {
+      setConversationStage("symptom-check");
+      setPendingQuery(currentInput);
+      setContextData({});
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "How long have you had this issue?" },
+      ]);
+      return;
+    }
+
+    // Default
+    sendToApi(currentInput);
+  };
+  const resetConversation = () => {
+    setConversationStage(null);
+    setPendingQuery(null);
+    setContextData({});
+  };
+
+  const sendToApi = async (userText) => {
+    setLoading(true);
     setMessages((prev) => [...prev, { text: "Typing...", sender: "bot" }]);
 
     try {
       const response = await fetch("http://localhost:8080/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userMessage: currentInput }),
+        body: JSON.stringify({ userMessage: userText }),
       });
 
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
-      }
-
       const data = await response.json();
-      console.log("API Response:", data);
 
       let botMessage = "No response found.";
-
       if (data?.response) {
         botMessage = data.response;
       } else if (
@@ -142,21 +375,18 @@ const Chatbot = () => {
           { sender: "bot", text: "💬 Anything else? I’m here to help you." },
         ];
       });
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (err) {
+      console.error("API error:", err);
       setMessages((prev) => {
         const updated = [...prev];
-        updated.pop(); // remove "Typing..."
+        updated.pop();
         return [
           ...updated,
-          {
-            text: "❌ Sorry, something went wrong. Please try again.",
-            sender: "bot",
-          },
+          { text: "❌ API error. Try again.", sender: "bot" },
         ];
       });
     } finally {
-      setLoading(false); // ✅ Done loading
+      setLoading(false);
     }
   };
 
@@ -167,6 +397,13 @@ const Chatbot = () => {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // const [awaitingInfo, setAwaitingInfo] = useState(false);
+  const [pendingQuery, setPendingQuery] = useState(null);
+  // const [userAge, setUserAge] = useState(null);
+  // const [userGender, setUserGender] = useState(null);
+  const [conversationStage, setConversationStage] = useState(null);
+  const [contextData, setContextData] = useState({});
 
   const parseMarkdown = (text, isSummary = false) => {
     const boldRegex = /\*\*(.*?)\*\*/g;
