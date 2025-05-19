@@ -104,3 +104,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 🔗 **LinkedIn**: [Connect with me](https://www.linkedin.com/in/pralayesh-mukherjee-756a8b276/)  
 💡 Have suggestions? Let's innovate together! 🚀📚
 
+## 🌍 Architecture Diagram
+
+![Bookie Architecture](diagram.png)
