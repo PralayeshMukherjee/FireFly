@@ -106,4 +106,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## 🌍 Architecture Diagram
 
-![Bookie Architecture](diagram(1).png)
+![FireFly Architecture](diagramFirefly.png)
