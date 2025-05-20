@@ -4,19 +4,18 @@ import com.backend.FireFlyBackend.entity.UserData;
 import com.backend.FireFlyBackend.entity.UserEntity;
 import com.backend.FireFlyBackend.repository.UserDataRepo;
 import com.backend.FireFlyBackend.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class ChatService {
-    private final UserRepository userRepository;
-    private final UserDataRepo userDataRepo;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserDataRepo userDataRepo;
 
-    public ChatService(UserRepository userRepository,UserDataRepo userDataRepo){
-        this.userRepository = userRepository;
-        this.userDataRepo = userDataRepo;
-    }
     public void saveUserMessage(String email, String message){
         Optional<UserEntity> uE = userRepository.findById(email);
         if(uE.isPresent()){
