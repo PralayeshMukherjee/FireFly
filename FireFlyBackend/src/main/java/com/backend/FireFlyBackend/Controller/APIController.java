@@ -4,6 +4,7 @@ import com.backend.FireFlyBackend.DTO.ChatRequest;
 import com.backend.FireFlyBackend.Service.ChatService;
 import com.backend.FireFlyBackend.Service.GeminiAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,9 @@ public class APIController {
     @PostMapping("/chat")
     public Mono<Map<String,Object>> fireflyChat(@RequestBody ChatRequest chatRequest){
         String userMessage = chatRequest.getUserMessage();
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(userMessage);
+        chatService.saveUserMessage(email,userMessage);
         return geminiAPI.chat(userMessage);
     }
 }
