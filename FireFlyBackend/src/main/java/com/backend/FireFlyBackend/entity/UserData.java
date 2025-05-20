@@ -6,4 +6,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "userData")
 public class UserData {
+    private Long id;
+    private String message;
+    private String email;
 }
