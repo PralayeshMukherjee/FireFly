@@ -20,27 +20,39 @@ public class GeminiAPI {
     }
 
     public Mono<Map<String, Object>> chat(String userMessage) {
-        String formattedPrompt = "";
+        final String WARNING_FILTER = " and don't use 'I am an AI assistant, and cannot provide medical advice.' this line or other any warnings";
+
         userMessage = userMessage.trim().toLowerCase();
-        if(userMessage.contains("medicine")){
-            formattedPrompt = "suggest medicine and give me response in 100-150 words and attached bullet points about the medicines : "+ userMessage+" and don't use 'I am an AI assistant, and cannot provide medical advice.' this line or other any warnings "+" and add a summary of all the things that you mention";
-        }else if(userMessage.equalsIgnoreCase("hey") || userMessage.equalsIgnoreCase("hi")){
+
+        // Handle greetings
+        if (userMessage.contains("hey") || userMessage.contains("hi")) {
             return Mono.just(Map.of(
                     "response", "This is your firefly chatbot. How can I help you?"
             ));
-        }else if(userMessage.equalsIgnoreCase("thanks") || userMessage.equalsIgnoreCase("thank you")){
+        }
+
+        // Handle thanks
+        if (userMessage.contains("thanks") || userMessage.contains("thank you")||userMessage.contains("thank")||userMessage.contains("appreciate it")) {
             return Mono.just(Map.of(
                     "response", "Mention not. I am here to help you always, good day"
             ));
-        }else if(userMessage.contains("symptoms")){
-            formattedPrompt = "what is the symptoms of and give me response in 50-60 words paragraph and some bullet points related to medicine or help care related topic on the: "+userMessage+" and don't use 'I am an AI assistant, and cannot provide medical advice.' this line or other any warnings";
-        }else if(userMessage.contains("disease")){
-            formattedPrompt = "explain and give me response in 50-60 words paragraph and some bullet points related to medicine or help care related topic on the: "+ userMessage+" and don't use 'I am an AI assistant, and cannot provide medical advice.' this line or other any warnings";
-        }else{
-            formattedPrompt = "give me response in 50-60 words paragraph and some bullet points related to medicine or help care related topic on the: "+userMessage+" and don't use 'I am an AI assistant, and cannot provide medical advice.' this line or other any warnings";
         }
+        if(userMessage.contains("who are you")||(userMessage.contains("what is your name"))||(userMessage.contains("what do you do"))||(userMessage.contains("are you a doctor"))||(userMessage.contains("are you a human"))){
+            return Mono.just(Map.of(
+                    "response", "I'm Firefly, your helpful chatbot. I can assist you with health-related queries!"
+                    )
+            );
+        }
+
+        // Generate prompt based on message content
+        String formattedPrompt = createPrompt(userMessage, WARNING_FILTER);
+
+        // Send prompt to Gemini API
         return webClient.post()
-                .uri(uriBuilder -> uriBuilder.path("/models/gemini-2.0-flash:generateContent").queryParam("key", apiKey).build())
+                .uri(uriBuilder -> uriBuilder
+                        .path("/models/gemini-2.0-flash:generateContent")
+                        .queryParam("key", apiKey)
+                        .build())
                 .bodyValue(Map.of(
                         "contents", new Object[]{
                                 Map.of("parts", new Object[]{
@@ -49,7 +61,25 @@ public class GeminiAPI {
                         }
                 ))
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
-                .map(response -> response);
+                .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {});
     }
+
+    private String createPrompt(String userMessage, String warningFilter) {
+        if (userMessage.contains("medicine")) {
+            return "Suggest medicine and give me a response in 100-150 words and attach bullet points about the medicines: "
+                    + userMessage + warningFilter + " and add a summary of all the things you mention";
+        } else if (userMessage.contains("symptoms")) {
+            return "What are the symptoms of: " + userMessage
+                    + "? Give me a response in 50-60 words and some bullet points related to medicine or healthcare topics"
+                    + warningFilter;
+        } else if (userMessage.contains("disease")) {
+            return "Explain: " + userMessage
+                    + " in a 50-60 word paragraph with some bullet points related to medicine or healthcare topics"
+                    + warningFilter;
+        } else {
+            return "Give me a 50-60 word paragraph with some bullet points related to medicine or healthcare topics on: "
+                    + userMessage + warningFilter;
+        }
+    }
+
 }
