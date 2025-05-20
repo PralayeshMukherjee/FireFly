@@ -9,5 +9,6 @@ public class UserData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
+    @ManyToOne
     private String email;
 }
