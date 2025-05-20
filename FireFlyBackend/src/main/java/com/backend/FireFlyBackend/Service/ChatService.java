@@ -8,4 +8,9 @@ import org.springframework.stereotype.Service;
 public class ChatService {
     private final UserRepository userRepository;
     private final UserDataRepo userDataRepo;
+
+    public ChatService(UserRepository userRepository,UserDataRepo userDataRepo){
+        this.userRepository = userRepository;
+        this.userDataRepo = userDataRepo;
+    }
 }
