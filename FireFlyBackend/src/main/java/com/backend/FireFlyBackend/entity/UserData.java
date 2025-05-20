@@ -10,5 +10,6 @@ public class UserData {
     private Long id;
     private String message;
     @ManyToOne
+    @JoinColumn(name = "email_id", referencedColumnName = "email_id")
     private String email;
 }
