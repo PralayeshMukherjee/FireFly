@@ -25,9 +25,9 @@ public class APIController {
     @PostMapping("/chat")
     public Mono<Map<String,Object>> fireflyChat(@RequestBody ChatRequest chatRequest){
         String userMessage = chatRequest.getUserMessage();
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+//        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(userMessage);
-        chatService.saveUserMessage(email,userMessage);
+//        chatService.saveUserMessage(email,userMessage);
         return geminiAPI.chat(userMessage);
     }
 }

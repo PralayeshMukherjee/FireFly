@@ -10,16 +10,16 @@ public class UserData {
     private Long id;
     private String message;
     @ManyToOne
-    @JoinColumn(name = "email_id", referencedColumnName = "email_id")
-    private String email;
+    @JoinColumn(name = "email", referencedColumnName = "emailId")
+    private UserEntity user;
 
     public UserData() {
     }
 
-    public UserData(Long id, String message, String email) {
+    public UserData(Long id, String message, UserEntity user) {
         this.id = id;
         this.message = message;
-        this.email = email;
+        this.user = user;
     }
 
     public Long getId() {
@@ -38,11 +38,11 @@ public class UserData {
         this.message = message;
     }
 
-    public String getEmail() {
-        return email;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(UserEntity user) {
+        this.user = this.user;
     }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Send } from "lucide-react";
+import { Send, Speaker } from "lucide-react";
 import ThemeBtn from "../Component/ThemeBtn";
 import fireflyLogo from "../assets/fireflyLogo.png";
 import { useNavigate } from "react-router-dom";
@@ -9,23 +9,122 @@ import Profile from "../assets/profile.png";
 import Setting from "../assets/setting.png";
 import Logout from "../assets/logout.png";
 import Help from "../assets/help.png";
+import { Mic, MicOff } from "lucide-react";
+import { space } from "postcss/lib/list";
 
 const Chatbot = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [messages, setMessages] = useState([
     { sender: "bot", text: "Hi! How can I help you today?" },
   ]);
-  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false); // ✅ Added
   const chatEndRef = useRef(null);
   const navigate = useNavigate();
   const [previewImage, setPreviewImage] = useState(null);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const [input, setInput] = useState("");
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const isRecognitionActive = useRef(false);
+  const transcriptRef = useRef("");
 
   const LogoutUser = () => {
     sessionStorage.removeItem("isLogin");
     navigate("/Login", { replace: true });
+  };
+  const startListening = () => {
+    if (!recognition) {
+      alert("Speech recognition not supported.");
+      return;
+    }
+
+    if (isRecognitionActive.current) {
+      console.warn("Speech recognition already running.");
+      return;
+    }
+
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+    isRecognitionActive.current = true;
+    setIsListening(true);
+
+    recognition.onstart = () => {
+      console.log("🎙️ Listening started...");
+    };
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      console.log("🎤 You said:", transcript);
+      setInput(transcript);
+      sendMessage();
+      transcriptRef.current = transcript; // <-- save transcript to ref
+    };
+
+    recognition.onerror = (event) => {
+      console.error("🎤 Speech error:", event.error);
+      setIsListening(false);
+      isRecognitionActive.current = false;
+    };
+
+    recognition.onend = () => {
+      console.log("🛑 Listening stopped.");
+      setIsListening(false);
+      isRecognitionActive.current = false;
+      if (transcriptRef.current.trim()) {
+        setInput(transcriptRef.current);
+        console.log("input is " + input); // set input to the last transcript
+        sendMessage(); // ✅ Use your existing sendMessage method
+        transcriptRef.current = ""; // clear after sending
+      }
+    };
+  };
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = SpeechRecognition ? new SpeechRecognition() : null;
+
+  function MicButton({
+    isListening,
+    isSpeaking,
+    onListenClick,
+    onStopSpeaking,
+  }) {
+    const handleClick = () => {
+      if (isSpeaking) {
+        onStopSpeaking();
+      } else {
+        onListenClick();
+      }
+    };
+
+    return (
+      <button
+        onClick={handleClick}
+        className={`p-3 rounded-full shadow-md transition-all duration-300 ${
+          isSpeaking
+            ? "bg-red-600 animate-pulse"
+            : isListening
+            ? "bg-red-500 animate-pulse"
+            : "bg-blue-600 hover:bg-blue-700"
+        } text-white`}
+        aria-label={isSpeaking ? "Stop speaking" : "Start voice input"}
+      >
+        {isSpeaking ? (
+          <Speaker className="w-6 h-6" />
+        ) : isListening ? (
+          <MicOff className="w-6 h-6" />
+        ) : (
+          <Mic className="w-6 h-6" />
+        )}
+      </button>
+    );
+  }
+  const stopListening = () => {
+    window.speechSynthesis.cancel();
   };
 
   useEffect(() => {
@@ -89,78 +188,28 @@ const Chatbot = () => {
         navigate("/Login", { replace: true });
       });
   }, []);
+  const stopSpeaking = () => {
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+  };
 
-  // useEffect(() => {}, []);
+  const speak = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
 
-  // const sendMessage = async () => {
-  //   if (previewImage) {
-  //     setMessages((prev) => [...prev, { sender: "user", image: previewImage }]);
-  //     setPreviewImage(null); // clear after sending
-  //   }
+    utterance.onstart = () => {
+      setIsSpeaking(true);
+    };
 
-  //   if (!input.trim() || loading) return; // ✅ Prevent spam or empty input
+    utterance.onend = () => {
+      setIsSpeaking(false);
+    };
 
-  //   const currentInput = input;
-  //   setInput("");
-  //   setMessages((prev) => [...prev, { text: currentInput, sender: "user" }]);
-  //   setLoading(true); // ✅ Start loading
-
-  //   // ✅ Show "Typing..." message
-  //   setMessages((prev) => [...prev, { text: "Typing...", sender: "bot" }]);
-
-  //   try {
-  //     const response = await fetch("http://localhost:8080/api/chat", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ userMessage: currentInput }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`Server error: ${response.status}`);
-  //     }
-
-  //     const data = await response.json();
-  //     console.log("API Response:", data);
-
-  //     let botMessage = "No response found.";
-
-  //     if (data?.response) {
-  //       botMessage = data.response;
-  //     } else if (
-  //       data?.candidates?.length > 0 &&
-  //       data.candidates[0]?.content?.parts?.length > 0
-  //     ) {
-  //       botMessage = data.candidates[0].content.parts[0].text;
-  //     }
-
-  //     setMessages((prev) => {
-  //       const updated = [...prev];
-  //       updated.pop(); // remove "Typing..."
-  //       return [
-  //         ...updated,
-  //         { text: botMessage, sender: "bot" },
-  //         { sender: "bot", text: "💬 Anything else? I’m here to help you." },
-  //       ];
-  //     });
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //     setMessages((prev) => {
-  //       const updated = [...prev];
-  //       updated.pop(); // remove "Typing..."
-  //       return [
-  //         ...updated,
-  //         {
-  //           text: "❌ Sorry, something went wrong. Please try again.",
-  //           sender: "bot",
-  //         },
-  //       ];
-  //     });
-  //   } finally {
-  //     setLoading(false); // ✅ Done loading
-  //   }
-  // };
+    window.speechSynthesis.speak(utterance);
+  };
 
   const sendMessage = async () => {
+    window.speechSynthesis.cancel();
     if (previewImage) {
       setMessages((prev) => [...prev, { sender: "user", image: previewImage }]);
       setPreviewImage(null);
@@ -180,6 +229,7 @@ const Chatbot = () => {
           ...prev,
           { sender: "bot", text: "What's your gender?" },
         ]);
+        speak("What's your gender");
         return;
       }
       if (!contextData.gender) {
@@ -188,6 +238,7 @@ const Chatbot = () => {
           ...prev,
           { sender: "bot", text: "Are you allergic to any medicine?" },
         ]);
+        speak("Are you allergic to any medicine");
         return;
       }
       if (!contextData.allergies) {
@@ -199,6 +250,7 @@ const Chatbot = () => {
             text: "Do you have any existing medical conditions (e.g., diabetes, asthma)?",
           },
         ]);
+        speak("Do you have any existing medical conditions diabetes or asthma");
         return;
       }
       if (!contextData.conditions) {
@@ -219,6 +271,7 @@ const Chatbot = () => {
           ...prev,
           { sender: "bot", text: "What's your age?" },
         ]);
+        speak("What's your age");
         return;
       }
       if (!contextData.age) {
@@ -227,6 +280,7 @@ const Chatbot = () => {
           ...prev,
           { sender: "bot", text: "What's your gender?" },
         ]);
+        speak("What's your gender");
         return;
       }
       if (!contextData.gender) {
@@ -235,6 +289,7 @@ const Chatbot = () => {
           ...prev,
           { sender: "bot", text: "Preferred language for consultation?" },
         ]);
+        speak("Preferred language for consultation");
         return;
       }
       if (!contextData.language) {
@@ -246,6 +301,7 @@ const Chatbot = () => {
             text: "Do you want a general physician or a specialist?",
           },
         ]);
+        speak("Do you want a general physician or a specialist");
         return;
       }
       if (!contextData.type) {
@@ -264,6 +320,7 @@ const Chatbot = () => {
           ...prev,
           { sender: "bot", text: "What's your age?" },
         ]);
+        speak("What's your age");
         return;
       }
       if (!contextData.age) {
@@ -272,6 +329,7 @@ const Chatbot = () => {
           ...prev,
           { sender: "bot", text: "What's your gender?" },
         ]);
+        speak("What's your gender");
         return;
       }
       if (!contextData.gender) {
@@ -288,6 +346,7 @@ const Chatbot = () => {
           ...prev,
           { sender: "bot", text: "Rate your pain on a scale of 1–10" },
         ]);
+        speak("Rate your pain on a scale of 1 to 10");
         return;
       }
       if (!contextData.painLevel) {
@@ -307,6 +366,7 @@ const Chatbot = () => {
         ...prev,
         { sender: "bot", text: "What's your age?" },
       ]);
+      speak("What's your age");
       return;
     }
 
@@ -318,6 +378,7 @@ const Chatbot = () => {
         ...prev,
         { sender: "bot", text: "Which city are you in?" },
       ]);
+      speak("Which city are you in");
       return;
     }
 
@@ -331,6 +392,7 @@ const Chatbot = () => {
         ...prev,
         { sender: "bot", text: "How long have you had this issue?" },
       ]);
+      speak("How long have you had this issue");
       return;
     }
 
@@ -343,9 +405,37 @@ const Chatbot = () => {
     setContextData({});
   };
 
+  const removeEmoji = (text) => {
+    return text
+      .replace(/🌡️ ?fever/gi, "fever")
+      .replace(/💊 ?pain/gi, "pain")
+      .replace(/🔥 ?inflammation/gi, "inflammation")
+      .replace(/👨‍⚕️ ?doctor/gi, "doctor")
+      .replace(/💊 ?medicine/gi, "medicine")
+      .replace(/💧 ?hydration/gi, "hydration")
+      .replace(/🚰 ?water/gi, "water")
+      .replace(/🛌 ?recovery/gi, "recovery")
+      .replace(/🤕 ?headache/gi, "headache")
+      .replace(/🤢 ?nausea/gi, "nausea")
+      .replace(/🤮 ?vomiting/gi, "vomiting")
+      .replace(/🤧 ?cough/gi, "cough")
+      .replace(/🛏️ ?rest/gi, "rest")
+      .replace(/🤒 ?sick/gi, "sick")
+      .replace(/🤒 ?illness/gi, "illness")
+      .replace(/🏥 ?hospital/gi, "hospital")
+      .replace(/✅ ?Summary/gi, "Summary");
+  };
+
   const sendToApi = async (userText) => {
     setLoading(true);
     setMessages((prev) => [...prev, { text: "Typing...", sender: "bot" }]);
+    const speak = (text) => {
+      text = removeEmoji(text);
+      text += "Anything else? I’m here to help you.";
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US";
+      window.speechSynthesis.speak(utterance);
+    };
 
     try {
       const response = await fetch("http://localhost:8080/api/chat", {
@@ -375,6 +465,7 @@ const Chatbot = () => {
           { sender: "bot", text: "💬 Anything else? I’m here to help you." },
         ];
       });
+      speak(botMessage);
     } catch (err) {
       console.error("API error:", err);
       setMessages((prev) => {
@@ -454,6 +545,11 @@ const Chatbot = () => {
       .replace(/sick|illness/gi, "🤒 sick")
       .replace(/hospital/gi, "🏥 hospital")
       .replace(/summary/gi, "✅ Summary");
+  };
+  const handleInputChange = (e) => {
+    if (loading) return;
+    // stopListening();
+    setInput(e.target.value);
   };
 
   return (
@@ -603,12 +699,19 @@ const Chatbot = () => {
               loading ? "Please wait for response..." : "Type your message..."
             }
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             disabled={loading}
           />
 
           {/* Send Button */}
+          <MicButton
+            isListening={isListening}
+            isSpeaking={isSpeaking}
+            onListenClick={startListening}
+            onStopSpeaking={stopSpeaking}
+          />
+
           <button
             className={`bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-3 rounded-full shadow-lg transform transition duration-300 ${
               loading ? "opacity-50 cursor-not-allowed" : "hover:scale-105"

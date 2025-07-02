@@ -21,7 +21,7 @@ public class ChatService {
         if(uE.isPresent()){
             UserData userData = new UserData();
             userData.setMessage(message);
-            userData.setEmail(email);
+            userData.setUser(uE.get());
             userDataRepo.save(userData);
         }else {
             throw new RuntimeException("User not found with email: " + email);
