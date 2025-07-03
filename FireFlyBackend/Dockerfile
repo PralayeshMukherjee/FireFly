@@ -3,27 +3,27 @@
 #
 #ENTRYPOINT ["top", "-b"]
 
-# Use Maven to build the project
-FROM maven:3.9.3-eclipse-temurin-17 AS builder
+# ------------ Build Stage ------------
+FROM maven:3.9.3-eclipse-temurin-21 AS builder
+
+# Set working directory
 WORKDIR /app
+
+# Copy all project files into the container
 COPY . .
+
+# Build the Spring Boot app (skip tests to avoid DB errors)
 RUN mvn clean package -DskipTests
 
-# Base image with Java 17 (use Java 21 if your app requires it)
+# ------------ Runtime Stage ------------
 FROM eclipse-temurin:21-jdk-jammy
 
-# Set working directory in container
+# Working directory inside the container
 WORKDIR /app
 
-# Copy the entire backend folder into the container
-COPY . .
+# Copy the built JAR file from the builder stage
+COPY --from=builder /app/target/*.jar app.jar
 
-# Build the Spring Boot application and skip tests to avoid DB errors
-RUN ./mvnw clean package -DskipTests
-
-# Copy only the built JAR file
-COPY target/*.jar app.jar
-
-# Set the command to run the JAR
+# Run the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
