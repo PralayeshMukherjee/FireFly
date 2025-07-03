@@ -3,6 +3,12 @@
 #
 #ENTRYPOINT ["top", "-b"]
 
+# Use Maven to build the project
+FROM maven:3.9.3-eclipse-temurin-17 AS builder
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
 # Base image with Java 17 (use Java 21 if your app requires it)
 FROM eclipse-temurin:21-jdk-jammy
 
