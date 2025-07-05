@@ -14,7 +14,9 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:8080/user/login?emailId=${formData.emailId}&password=${formData.password}`,
+        `${import.meta.env.VITE_BACKEND_URL}/user/login?emailId=${
+          formData.emailId
+        }&password=${formData.password}`,
         {
           method: "POST",
           headers: {
@@ -47,7 +49,9 @@ const LoginPage = () => {
     });
   };
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    window.location.href = `${
+      import.meta.env.VITE_BACKEND_URL
+    }/oauth2/authorization/google`;
   };
 
   const handleGithubLogin = () => {

@@ -136,7 +136,7 @@ const Chatbot = () => {
     }
 
     // If not a registered seller, check backend for OAuth login
-    fetch("http://localhost:8080/check/login", {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/check/login`, {
       credentials: "include",
       method: "GET",
       headers: {
@@ -438,11 +438,14 @@ const Chatbot = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userMessage: userText }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/chat`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userMessage: userText }),
+        }
+      );
 
       const data = await response.json();
 

@@ -40,13 +40,16 @@ const OTPVerification = () => {
   };
 
   const finalSubmit = async (formData) => {
-    const response = await fetch("http://localhost:8080/user/success", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/user/success`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
     const data = await response.json();
     if (data.isSuccessfullyRegister) {
       alert("User registered successfully");
@@ -60,7 +63,9 @@ const OTPVerification = () => {
     const fullOtp = Object.values(otp).join(""); // Combine to 6-digit OTP
     console.log(fullOtp);
     const response = await fetch(
-      `http://localhost:8080/user/verifyOtp?otp=${fullOtp}&emailId=${sessionStorage.getItem(
+      `${
+        import.meta.env.VITE_BACKEND_URL
+      }/user/verifyOtp?otp=${fullOtp}&emailId=${sessionStorage.getItem(
         "emailId"
       )}&name=${sessionStorage.getItem("name")}`,
       {

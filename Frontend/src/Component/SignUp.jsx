@@ -17,7 +17,9 @@ const SignUp = () => {
     });
   };
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    window.location.href = `${
+      import.meta.env.VITE_BACKEND_URL
+    }/oauth2/authorization/google`;
   };
 
   const handleGithubLogin = () => {
@@ -29,13 +31,16 @@ const SignUp = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/user/registration", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(registerFormData),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user/registration`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(registerFormData),
+        }
+      );
 
       const data = await response.json();
 
