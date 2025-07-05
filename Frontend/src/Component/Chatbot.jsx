@@ -134,6 +134,12 @@ const Chatbot = () => {
     if (isSuccessfullyRegister) {
       return;
     }
+    const isLogin = sessionStorage.getItem("isLogin") === "true";
+    const isGoogleUser = sessionStorage.getItem("isGoogleUser") === "true";
+    if (isLogin && !isGoogleUser) {
+      console.log("Manual login detected. Allowing access.");
+      return;
+    }
 
     // If not a registered seller, check backend for OAuth login
     fetch(`${import.meta.env.VITE_BACKEND_URL}/check/login`, {
