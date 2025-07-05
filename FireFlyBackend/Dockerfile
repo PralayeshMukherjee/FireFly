@@ -1,28 +1,21 @@
-#FROM ubuntu:latest
-#LABEL authors="rajmu"
-#
-#ENTRYPOINT ["top", "-b"]
+# First stage: Build the JAR
+FROM maven:3.9.6-eclipse-temurin-21 as builder
 
-# Use Java 21 base image
-FROM openjdk:21-jdk-slim
-
-# Set working directory inside container
 WORKDIR /app
 
-# Copy your project files (this must come before RUN)
+# Copy all files and build
 COPY . .
+RUN mvn clean package -DskipTests
 
-# Make mvnw executable (important for Linux environments)
-RUN chmod +x mvnw
+# Second stage: Run the app with smaller JDK image
+FROM openjdk:21-jdk-slim
 
-# Build the project and skip tests
-RUN ./mvnw clean package -DskipTests
+WORKDIR /app
 
-# Copy built JAR to final location (optional but clean)
-RUN cp target/*.jar app.jar
+# Copy JAR from builder stage
+COPY --from=builder /app/target/*.jar app.jar
 
-# Expose port (optional, Render doesn’t require it)
+# Expose the default port
 EXPOSE 8080
 
-# Command to run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
