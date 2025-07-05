@@ -4,13 +4,19 @@ import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
 import fs from 'fs'
 
+// Plugin to copy _redirects into dist
 const copyRedirects = () => {
   return {
     name: 'copy-redirects',
-    buildEnd() {
+    closeBundle() {
       const src = resolve(__dirname, 'public/_redirects')
       const dest = resolve(__dirname, 'dist/_redirects')
-      fs.copyFileSync(src, dest)
+      if (fs.existsSync(src)) {
+        fs.copyFileSync(src, dest)
+        console.log('✅ Copied _redirects to dist/')
+      } else {
+        console.warn('⚠️ _redirects file not found in public/')
+      }
     }
   }
 }
