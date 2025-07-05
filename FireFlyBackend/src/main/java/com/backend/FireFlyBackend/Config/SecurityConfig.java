@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .oauth2Login(oauth->oauth
                         .userInfoEndpoint(userInfo->userInfo
                                 .userService(customOAuth2UserService))
-                        .defaultSuccessUrl("https://fireflyfrontend-7y99.onrender.com/chatbot",true));
+                        .defaultSuccessUrl("/redirect",true));
 
         return http.build();
     }
