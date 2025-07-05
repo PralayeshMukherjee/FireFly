@@ -13,7 +13,7 @@ public class CROSConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173","https://firefly-frontend.netlify.app")
+                        .allowedOrigins("http://localhost:5173","https://fireflyfrontend-7y99.onrender.com")
                         .allowedMethods("GET","POST","PUT","DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true);
