@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -29,20 +31,20 @@ const LoginPage = () => {
       );
       const data = await response.json();
       if (data.result === "0") {
-        alert("Login successful");
+        toast.success("✅ Login successful");
         sessionStorage.setItem("isLogin", true);
         sessionStorage.setItem("isGoogleUser", false);
         navigate("/chatbot", { replace: true });
       } else if (data.result === "1") {
-        alert("Invalid password");
+        toast.warn("⚠️ Invalid password");
       } else if (data.result === "2") {
-        alert("User not found");
+        toast.warn("⚠️ User not found");
       } else {
-        alert("something went wrong");
+        toast.warn("⚠️ something went wrong");
       }
     } catch (error) {
       console.error("Error during login:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("❌ An error occurred. Please try again later.");
     }
   };
 
