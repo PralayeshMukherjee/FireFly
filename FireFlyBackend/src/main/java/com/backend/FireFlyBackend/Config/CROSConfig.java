@@ -13,7 +13,7 @@ public class CROSConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173","https://fireflyfrontend-7y99.onrender.com","https://fire-7ynkvg3mc-rajs-projects-edd2f188.vercel.app","https://fire-fly-theta.vercel.app")
+                        .allowedOrigins("http://localhost:5173","https://fireflyfrontend-7y99.onrender.com","https://fire-7ynkvg3mc-rajs-projects-edd2f188.vercel.app","https://fire-fly-theta.vercel.app","https://fire-fly-theta.vercel.app/contact")
                         .allowedMethods("GET","POST","PUT","DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true);
