@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Send, Speaker } from "lucide-react";
 import ThemeBtn from "../Component/ThemeBtn";
 import fireflyLogo from "../assets/fireflyLogo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import User from "../assets/user.png";
 import Profile from "../assets/profile.png";
@@ -155,7 +155,19 @@ const Chatbot = () => {
     }
   }
 
+  const location = useLocation();
+
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const loginSuccess = params.get("login");
+    if (loginSuccess === "success") {
+      console.log("Login successful via OAuth");
+      sessionStorage.setItem("isLogin", "false");
+      sessionStorage.setItem("isGoogleUser", "true");
+      sessionStorage.setItem("isSuccessfullyRegister", "false");
+      navigate("/chatbot", { replace: true });
+      return;
+    }
     const isSuccessfullyRegister =
       sessionStorage.getItem("isSuccessfullyRegister") === "true";
 

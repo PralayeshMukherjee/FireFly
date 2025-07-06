@@ -10,7 +10,7 @@ import java.io.IOException;
 public class RedirectController {
     @GetMapping("/redirect")
     public void redirectAfterLogin(HttpServletResponse response) throws IOException {
-        response.sendRedirect("https://fire-fly-theta.vercel.app/chatbot");
+        response.sendRedirect("https://fire-fly-theta.vercel.app/chatbot?login=success");
     }
 
 }
