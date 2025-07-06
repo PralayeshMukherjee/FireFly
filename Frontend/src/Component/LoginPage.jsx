@@ -29,7 +29,7 @@ const LoginPage = () => {
       if (data.result === "0") {
         alert("Login successful");
         sessionStorage.setItem("isLogin", true);
-        sessionStorage.setItem("isGoogleUser", "false");
+        sessionStorage.setItem("isGoogleUser", false);
         navigate("/chatbot", { replace: true });
       } else if (data.result === "1") {
         alert("Invalid password");
