@@ -14,6 +14,8 @@ import OTPVerification from "./Component/OTPVerification";
 import Chatbot from "./Component/Chatbot";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import About from "./Component/Landing/About";
+import Contact from "./Component/Landing/Contact";
 
 function App() {
   const MyRouter = createBrowserRouter(
@@ -22,6 +24,8 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUp />} />
