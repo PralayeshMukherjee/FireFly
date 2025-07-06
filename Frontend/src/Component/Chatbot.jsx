@@ -128,15 +128,10 @@ const Chatbot = () => {
   };
 
   useEffect(() => {
-    const isSuccessfullyRegister =
-      sessionStorage.getItem("isSuccessfullyRegister") === "true";
-
-    if (isSuccessfullyRegister) {
-      return;
-    }
     const isLogin = sessionStorage.getItem("isLogin") === "true";
     const isGoogleUser = sessionStorage.getItem("isGoogleUser") === "true";
-    if (isLogin && !isGoogleUser) {
+
+    if (isLogin) {
       console.log("Manual login detected. Allowing access.");
       return;
     }
