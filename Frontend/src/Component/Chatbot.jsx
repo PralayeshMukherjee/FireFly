@@ -11,6 +11,8 @@ import Logout from "../assets/logout.png";
 import Help from "../assets/help.png";
 import { Mic, MicOff } from "lucide-react";
 import { space } from "postcss/lib/list";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Chatbot = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,7 +37,7 @@ const Chatbot = () => {
   };
   const startListening = () => {
     if (!recognition) {
-      alert("Speech recognition not supported.");
+      toast.error("❌ Speech recognition not supported.");
       return;
     }
 
