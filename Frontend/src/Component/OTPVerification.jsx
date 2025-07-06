@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const OTPVerification = () => {
   const inputRefs = useRef([]);
@@ -52,7 +54,7 @@ const OTPVerification = () => {
     );
     const data = await response.json();
     if (data.isSuccessfullyRegister) {
-      alert("User registered successfully");
+      toast.success("✅ User registered successfully");
       sessionStorage.setItem("isSuccessfullyRegister", true);
       navigate("/chatbot", { replace: true });
     }
@@ -78,7 +80,7 @@ const OTPVerification = () => {
     const data = await response.json();
     if (data.isVerfied) {
       sessionStorage.setItem("isVerfied", true);
-      alert("OTP verified successfully");
+      toast.success("✅ OTP verified successfully");
       const updatedData = {
         name: sessionStorage.getItem("name"),
         emailId: sessionStorage.getItem("emailId"),
@@ -87,7 +89,7 @@ const OTPVerification = () => {
       finalSubmit(updatedData);
     } else {
       sessionStorage.setItem("isVerfied", false);
-      alert("Invalid OTP");
+      toast.warn("⚠️ Invalid OTP");
     }
   };
   const handleKeyDown = (e, index) => {

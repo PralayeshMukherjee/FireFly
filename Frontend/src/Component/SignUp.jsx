@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const SignUp = () => {
   };
 
   const handleGithubLogin = () => {
-    alert("GitHub login clicked");
+    toast.warn("⚠️ GitHub login not done yet");
   };
 
   const handelSubmit = async (e) => {
@@ -52,10 +54,10 @@ const SignUp = () => {
         navigate("/OTPVerification");
       } else {
         sessionStorage.setItem("isSend", false);
-        alert("User already exists");
+        toast.warn("⚠️ User already exists");
       }
     } catch (err) {
-      alert("Something went wrong!");
+      toast.error("❌ Something went wrong!");
     } finally {
       setLoading(false);
     }

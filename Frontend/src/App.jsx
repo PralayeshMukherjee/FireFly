@@ -12,6 +12,8 @@ import Home from "./Component/Landing/Home";
 import SignUp from "./Component/SignUp";
 import OTPVerification from "./Component/OTPVerification";
 import Chatbot from "./Component/Chatbot";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const MyRouter = createBrowserRouter(
@@ -31,6 +33,7 @@ function App() {
   return (
     <ThemeProvider>
       <RouterProvider router={MyRouter} />
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
     </ThemeProvider>
   );
 }
