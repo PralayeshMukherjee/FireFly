@@ -126,6 +126,34 @@ const Chatbot = () => {
   const stopListening = () => {
     window.speechSynthesis.cancel();
   };
+  async function restoreSession() {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/check/login`,
+        {
+          credentials: "include",
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (res.status === 200) {
+        const data = await res.json();
+        sessionStorage.setItem("isLogin", "true");
+        sessionStorage.setItem("userEmail", data.email);
+        sessionStorage.setItem("userName", data.name);
+        sessionStorage.setItem("isGoogleUser", "true");
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      console.error("Error restoring session:", err);
+      return false;
+    }
+  }
 
   useEffect(() => {
     const isSuccessfullyRegister =

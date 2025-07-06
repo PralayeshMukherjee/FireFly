@@ -51,8 +51,8 @@ const LoginPage = () => {
     });
   };
   const handleGoogleLogin = () => {
-    sessionStorage.setItem("isLogin", false);
-    sessionStorage.setItem("isGoogleUser", true);
+    sessionStorage.setItem("isLogin", "false");
+    sessionStorage.setItem("isGoogleUser", "true");
     window.location.href = `${
       import.meta.env.VITE_BACKEND_URL
     }/oauth2/authorization/google`;
