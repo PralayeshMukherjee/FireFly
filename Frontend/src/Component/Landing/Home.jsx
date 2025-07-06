@@ -1,6 +1,7 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import homePageSvg from "../../assets/homePageSvg.svg";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -23,9 +24,12 @@ const Home = () => {
           fundamental principles, service delivery, patient care, and medical
           progress.
         </p>
-        <button className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 dark:bg-yellow-600 dark:hover:bg-yellow-700 text-black dark:text-white font-semibold rounded-full shadow transition duration-300">
+        <Link
+          to={"/signup"}
+          className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 dark:bg-yellow-600 dark:hover:bg-yellow-700 text-black dark:text-white font-semibold rounded-full shadow transition duration-300"
+        >
           Get Started
-        </button>
+        </Link>
       </div>
 
       {/* Right Section - Illustration */}
