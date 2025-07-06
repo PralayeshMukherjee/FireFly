@@ -35,16 +35,21 @@ const LoginPage = () => {
         sessionStorage.setItem("isLogin", true);
         sessionStorage.setItem("isGoogleUser", false);
         navigate("/chatbot", { replace: true });
+        setLoading(false);
       } else if (data.result === "1") {
         toast.warn("⚠️ Invalid password");
+        setLoading(false);
       } else if (data.result === "2") {
         toast.warn("⚠️ User not found");
+        setLoading(false);
       } else {
         toast.warn("⚠️ something went wrong");
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error during login:", error);
       toast.error("❌ An error occurred. Please try again later.");
+      setLoading(false);
     }
   };
 
