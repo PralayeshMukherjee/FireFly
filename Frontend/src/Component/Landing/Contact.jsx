@@ -25,6 +25,7 @@ const Contact = () => {
         `${import.meta.env.VITE_BACKEND_URL}/contact/team`,
         {
           method: "POST",
+          body: JSON.stringify(form),
           headers: {
             "Content-Type": "application/json",
           },
