@@ -19,7 +19,6 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setForm({ name: "", email: "", message: "" });
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/contact/team`,
@@ -40,12 +39,14 @@ const Contact = () => {
         toast.warn("⚠️ Failed to send your message. Please try again later.");
         setLoading(false);
       }
+      setForm({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Error sending message:", error);
       toast.error(
         "❌ An error occurred while sending your message. Please try again later."
       );
       setLoading(false);
+      setForm({ name: "", email: "", message: "" });
     }
   };
 
