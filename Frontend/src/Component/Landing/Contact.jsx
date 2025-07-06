@@ -25,14 +25,13 @@ const Contact = () => {
         `${import.meta.env.VITE_BACKEND_URL}/contact/team`,
         {
           method: "POST",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
       const data = await response.json();
-      if (data.isContactMailSend === "true") {
+      if (data.isContactMailSend === true) {
         toast.success("✅ Your message has been sent successfully!");
         setLoading(false);
         navigate("/home", { replace: true });
@@ -45,6 +44,7 @@ const Contact = () => {
       toast.error(
         "❌ An error occurred while sending your message. Please try again later."
       );
+      setLoading(false);
     }
   };
 
