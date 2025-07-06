@@ -68,7 +68,7 @@ const LoginPage = () => {
   };
 
   const handleGithubLogin = () => {
-    alert("GitHub login clicked");
+    toast.warn("⚠️ This feature is under development.");
   };
   return (
     <div className="min-h-screen flex items-center justify-center px-16 bg-gradient-to-r from-blue-100 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">

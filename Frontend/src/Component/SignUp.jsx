@@ -25,7 +25,7 @@ const SignUp = () => {
   };
 
   const handleGithubLogin = () => {
-    toast.warn("⚠️ GitHub login not done yet");
+    toast.warn("⚠️ This feature is under development.");
   };
 
   const handelSubmit = async (e) => {
