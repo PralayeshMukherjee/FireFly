@@ -271,7 +271,10 @@ const Chatbot = () => {
     setMessages((prev) => [...prev, { text: currentInput, sender: "user" }]);
 
     // 👇 Medicine Flow
-    if (conversationStage === "medicine") {
+    if (
+      conversationStage === "medicine" ||
+      conversationStage.startsWith("med")
+    ) {
       if (!contextData.age) {
         setContextData({ ...contextData, age: currentInput });
         setMessages((prev) => [

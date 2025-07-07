@@ -66,7 +66,7 @@ public class GeminiAPI {
 
     private String createPrompt(String userMessage, String warningFilter) {
         if (userMessage.contains("medicine")) {
-            return "Suggest medicine and give me a response in 100-150 words and attach bullet points about the medicines: "
+            return "Suggest medicine available in india and give me a response in 100-150 words and attach bullet points about the medicines: "
                     + userMessage + warningFilter + " and add a summary of all the things you mention";
         } else if (userMessage.contains("symptoms")) {
             return "What are the symptoms of: " + userMessage
