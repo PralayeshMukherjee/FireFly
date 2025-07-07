@@ -98,6 +98,7 @@ const Chatbot = () => {
     const handleClick = () => {
       if (isSpeaking) {
         onStopSpeaking();
+        stopSpeaking();
       } else {
         onListenClick();
       }
