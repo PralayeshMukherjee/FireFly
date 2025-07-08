@@ -30,6 +30,11 @@ public class GeminiAPI {
                     "response", "This is your firefly chatbot. How can I help you?"
             ));
         }
+        if (userMessage.contains("what is your name?") || userMessage.contains("your name")) {
+            return Mono.just(Map.of(
+                    "response", "My name is FireFly-I'm your AI Power Health Companion"
+            ));
+        }
 
         // Handle thanks
         if (userMessage.contains("thanks") || userMessage.contains("thank you")||userMessage.contains("thank")||userMessage.contains("appreciate it")) {
