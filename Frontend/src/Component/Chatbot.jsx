@@ -603,6 +603,9 @@ const Chatbot = () => {
     // stopListening();
     setInput(e.target.value);
   };
+  const underDev = () => {
+    toast.info("🚧 This feature is under development.");
+  };
 
   return (
     <div className="flex flex-col w-screen h-screen border-none rounded-none shadow-none bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
@@ -641,7 +644,7 @@ const Chatbot = () => {
                 </div>
                 <div className="p-2">
                   <Link
-                    to={"/Main/Setting/EditSection"}
+                    onClick={underDev}
                     className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
                   >
                     <img
@@ -652,7 +655,7 @@ const Chatbot = () => {
                     Edit Profile
                   </Link>
                   <Link
-                    to="#"
+                    onClick={underDev}
                     className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
                   >
                     <img
@@ -663,7 +666,7 @@ const Chatbot = () => {
                     Settings & Privacy
                   </Link>
                   <Link
-                    to="#"
+                    onClick={underDev}
                     className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
                   >
                     <img
