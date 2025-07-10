@@ -609,25 +609,30 @@ const Chatbot = () => {
 
   return (
     <div className="flex flex-col w-screen h-screen border-none rounded-none shadow-none bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="flex items-center justify-between p-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md dark:from-gray-800 dark:to-gray-700">
+      <div className="flex items-center justify-between p-1 bg-gradient-to-r from-blue-400 to-indigo-400 text-white shadow-md dark:from-gray-800 dark:to-gray-700">
         <div className="flex items-center space-x-4">
+          <Link to="/" className="flex bg-blue-300 rounded-xl items-center">
           <img
             src={fireflyLogo}
-            alt="GPT Chatbot"
+            alt="FIRE FLY"
             className="mr-2 w-25 h-20 rounded-full"
           />
-          <span className="text-2xl font-bold">FireFly Chatbot</span>
+          </Link>
+          <span className="text-2xl gap-2 font-bold">FireFly Chatbot</span>
         </div>
 
         <div className="flex space-x-4">
           <ThemeBtn />
           <div className="relative">
+            <Link
+              to="/" className="flex bg-blue-300 rounded-xl items-center">
             <img
               src={User}
               alt="User"
               className="w-10 h-10 rounded-full cursor-pointer"
               onClick={toggleMenu}
             />
+             </Link>
             {menuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg dark:bg-gray-800 dark:text-white">
                 <div className="p-4 flex items-center space-x-3 border-b border-gray-300 dark:border-gray-600">
@@ -645,7 +650,7 @@ const Chatbot = () => {
                 <div className="p-2">
                   <Link
                     onClick={underDev}
-                    className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
+                    className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
                   >
                     <img
                       src={Profile}
@@ -656,7 +661,7 @@ const Chatbot = () => {
                   </Link>
                   <Link
                     onClick={underDev}
-                    className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
+                    className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
                   >
                     <img
                       src={Setting}
@@ -667,7 +672,7 @@ const Chatbot = () => {
                   </Link>
                   <Link
                     onClick={underDev}
-                    className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
+                    className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
                   >
                     <img
                       src={Help}
@@ -678,7 +683,7 @@ const Chatbot = () => {
                   </Link>
                   <Link
                     onClick={LogoutUser}
-                    className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
+                    className="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center"
                   >
                     <img
                       src={Logout}

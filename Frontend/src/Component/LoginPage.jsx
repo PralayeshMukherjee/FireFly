@@ -91,7 +91,7 @@ const LoginPage = () => {
               <input
                 type="email"
                 name="emailId"
-                className="w-full px-5 py-4 border border-gray-300 bg-white text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                className="w-full px-5 py-4 border border-gray-300 bg-gray-200 text-black  rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 onChange={handleChange}
                 required
                 placeholder="you@example.com"
@@ -104,7 +104,7 @@ const LoginPage = () => {
               <input
                 type="password"
                 name="password"
-                className="w-full px-5 py-4 border border-gray-300 bg-white text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                className="w-full px-5 py-4 border border-gray-300 bg-gray-200 text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 onChange={handleChange}
                 required
                 placeholder="••••••••"
