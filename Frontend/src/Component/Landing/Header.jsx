@@ -6,22 +6,22 @@ import fireflyLogo from "../../assets/fireflyLogo.png";
 export default function Header() {
   return (
     <header className="shadow sticky z-50 top-0">
-      <nav className="bg-violet-600  dark:bg-gray-800 border-gray-200 px-4 lg:px-6 py-2">
+      <nav className="bg-violet-600 border-gray-200 px-4 lg:px-6 py-2">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link to="/" className="flex dark:bg-transparent rounded-xl items-center">
+          <Link to="/" className="flex items-center">
             <img
               src={fireflyLogo}
               className="mr-2 w-25 h-20 rounded-full"
               alt="Library"
             />
           </Link>
-          <div className="flex i gap-5 tems-center lg:order-2">
+          <div className="flex items-center lg:order-2">
             <ThemeBtn />
             <Link
               to="/Login"
-              className="text-white hover:bg-gray-600 border hover:text-white focus:ring-4 focus:ring-gray-300 font-mono font-bold rounded-lg text-md px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+              className="text-white hover:bg-gray-50 hover:text-black focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
             >
-              Login
+              Log in
             </Link>
           </div>
           <div
