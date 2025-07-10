@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import fireflyLogo from "../assets/fireflyLogo.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -74,6 +75,13 @@ const LoginPage = () => {
     <div className="min-h-screen flex items-center justify-center px-16 bg-gradient-to-r from-blue-100 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="w-full max-w-6xl grid grid-cols-2 gap-8 bg-white p-16 rounded-3xl shadow-2xl dark:bg-gray-900">
         <div className="hidden md:flex flex-col justify-center bg-blue-600 text-white rounded-2xl p-12 dark:bg-gray-800">
+          <Link to="/" className="flex rounded-xl items-center">
+                    <img
+                      src={fireflyLogo}
+                      alt="FIRE FLY"
+                      className="mr-2 w-50 h-40 bg-blue-400 rounded-xl my-4 justify-between items-center"
+                    />
+                    </Link>
           <h2 className="text-5xl font-bold mb-6">Welcome Back!</h2>
           <p className="text-xl">
             Log in to access your dashboard and manage your account.
@@ -85,26 +93,26 @@ const LoginPage = () => {
           </h2>
           <form onSubmit={handleLogin} className="space-y-8">
             <div>
-              <label className="block mb-2 text-lg font-medium text-gray-700 dark:text-gray-300">
+              <label className="block mb-2 text-lg font-semibold text-black dark:text-gray-300">
                 Email Address
               </label>
               <input
                 type="email"
                 name="emailId"
-                className="w-full px-5 py-4 border border-gray-300 bg-gray-200 text-black  rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                className="w-full px-5 py-4 border border-gray-300 bg-gray-200 text-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 onChange={handleChange}
                 required
                 placeholder="you@example.com"
               />
             </div>
             <div>
-              <label className="block mb-2 text-lg font-medium text-gray-700 dark:text-gray-300">
+              <label className="block mb-2 text-lg font-semibold text-black dark:text-gray-300">
                 Password
               </label>
               <input
                 type="password"
                 name="password"
-                className="w-full px-5 py-4 border border-gray-300 bg-gray-200 text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                className="w-full px-5 py-4 border border-gray-300 bg-gray-200 text-gray-700  rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 onChange={handleChange}
                 required
                 placeholder="••••••••"
