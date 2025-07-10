@@ -609,7 +609,7 @@ const Chatbot = () => {
 
   return (
     <div className="flex flex-col w-screen h-screen border-none rounded-none shadow-none bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="flex items-center justify-between p-1 bg-gradient-to-r from-blue-500 to-indigo-400 text-white shadow-md dark:from-gray-800 dark:to-gray-700">
+      <div className="flex items-center justify-between p-1 bg-gradient-to-r from-blue-400 to-indigo-400 text-white shadow-md dark:from-gray-800 dark:to-gray-700">
         <div className="flex items-center space-x-4">
           <Link to="/" className="flex rounded-xl items-center">
           <img
@@ -621,11 +621,11 @@ const Chatbot = () => {
           <span className="text-2xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text gap-2 font-bold">FireFly Chatbot</span>
         </div>
 
-        <div className="flex space-x-4">
+        <div className="flex gap-2 space-x-4">
           <ThemeBtn />
           <div className="relative">
             <Link
-              to="/" className="flex bg-blue-300 rounded-xl items-center">
+              to="/" className="flex  rounded-xl items-center">
             <img
               src={User}
               alt="User"
