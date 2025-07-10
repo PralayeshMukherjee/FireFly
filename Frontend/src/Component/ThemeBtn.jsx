@@ -7,7 +7,7 @@ function ThemeBtn() {
   return (
     <button
       onClick={themeMode === "light" ? darkTheme : lightTheme}
-      className="flex items-center mx-auto px-4 py-2 bg-gray-400 dark:bg-transparent text-white rounded-full transition-all duration-300 hover:bg-gray-600"
+      className="flex items-center mx-auto px-4 py-2 bg-violet-600 dark:bg-transparent text-white rounded-full transition-all duration-300 hover:bg-gray-600"
     >
       {themeMode === "light" ? (
         <>
