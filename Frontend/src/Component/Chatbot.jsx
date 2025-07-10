@@ -621,7 +621,7 @@ const Chatbot = () => {
           <span className="text-2xl dark:bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block bg-clip-text gap-2  justify-between  font-bold">FireFly Chatbot</span>
         </div>
 
-        <div className="flex gap-4 space-x-4">
+        <div className="flex gap-4 space-x-4 mx-4">
           <ThemeBtn />
           <div className="relative">
             <Link
