@@ -618,7 +618,7 @@ const Chatbot = () => {
             className="mr-2 w-25 h-20 rounded-full"
           />
           </Link>
-          <span className="text-2xl dark:bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text gap-2 font-bold">FireFly Chatbot</span>
+          <span className="text-2xl dark:bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block bg-clip-text gap-2 text-gray-200 justify-between items-center font-bold">FireFly Chatbot</span>
         </div>
 
         <div className="flex gap-4 space-x-4">
