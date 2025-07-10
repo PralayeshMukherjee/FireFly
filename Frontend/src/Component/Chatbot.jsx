@@ -624,15 +624,14 @@ const Chatbot = () => {
         <div className="flex gap-4 space-x-4 mx-4">
           <ThemeBtn />
           <div className="relative">
-            <Link
-              to="/" className="flex  rounded-xl items-center">
+            
             <img
               src={User}
               alt="User"
               className="w-10 h-10 rounded-full cursor-pointer"
               onClick={toggleMenu}
             />
-             </Link>
+             
             {menuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg dark:bg-gray-800 dark:text-white">
                 <div className="p-4 flex items-center space-x-3 border-b border-gray-300 dark:border-gray-600">
