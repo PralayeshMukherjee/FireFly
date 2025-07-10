@@ -34,8 +34,8 @@ Say goodbye to random website searches — let **FireFly** guide you toward bett
 | Component     | Technology                |
 |---------------|----------------------------|
 | **Frontend**  | React (Vite) + Tailwind CSS |
-| **Backend**   | Spring Boot                |
-| **Database**  | MySQL                      |
+| **Backend**   | Spring Boot + Spring Security               |
+| **Database**  | MySQL + PostgreSQL                     |
 | **AI Layer**  | Generative AI API (Coming Soon) |
 
 ---
