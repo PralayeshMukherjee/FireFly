@@ -105,7 +105,6 @@ Contributions are welcome! 🎉 Feel free to fork the repository, create a new b
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
-
 ## 📩 Contact
 🔗 **GitHub**: [PralayeshMukherjee](https://github.com/PralayeshMukherjee)  
 🔗 **LinkedIn**: [Connect with me](https://www.linkedin.com/in/pralayesh-mukherjee-756a8b276/)  
