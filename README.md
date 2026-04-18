@@ -4,7 +4,7 @@ FireFly is an intelligent, AI-powered health chatbot designed to support users i
 
 ----
 
-## 🧠 What FireFly Can Do for You
+## 🧠 What FireFly Can Do for You----
 
 ### 🔍 Symptom Checker
 Describe how you're feeling — FireFly analyzes your symptoms using smart algorithms and offers personalized suggestions.
