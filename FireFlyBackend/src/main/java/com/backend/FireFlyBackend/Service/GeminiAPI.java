@@ -55,7 +55,7 @@ public class GeminiAPI {
         // Send prompt to Gemini API
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/models/gemini-2.0-flash:generateContent")
+                        .path("/models/gemini-2.5-flash:generateContent")
                         .queryParam("key", apiKey)
                         .build())
                 .bodyValue(Map.of(
