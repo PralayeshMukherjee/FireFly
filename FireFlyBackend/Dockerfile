@@ -1,21 +1,19 @@
-# First stage: Build the JAR
-FROM maven:3.9.6-eclipse-temurin-21 as builder
+# Build stage
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
-# Copy all files and build
 COPY . .
+
 RUN mvn clean package -DskipTests
 
-# Second stage: Run the app with smaller JDK image
-FROM openjdk:21-jdk-slim
+# Run stage
+FROM eclipse-temurin:21-jre-jammy
 
 WORKDIR /app
 
-# Copy JAR from builder stage
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
-# Expose the default port
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
