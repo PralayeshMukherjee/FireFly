@@ -12,7 +12,7 @@ const Home = () => {
           <div className="text-yellow-500 bg-white dark:bg-gray-800 p-2 rounded-full shadow">
             <FaPlus className="text-xl" />
           </div>
-          <span className="text-gray-800 dark:text-gray-200 font-medium text-lg">
+          <span className="text-gray-800  dark:text-gray-200 font-medium text-lg">
             FireFly
           </span>
         </div>
@@ -26,7 +26,7 @@ const Home = () => {
         </p>
         <Link
           to={"/signup"}
-          className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 dark:bg-yellow-600 dark:hover:bg-yellow-700 text-black dark:text-white font-semibold rounded-full shadow transition duration-300"
+          className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 hover:animate-pulse dark:bg-yellow-600 dark:hover:bg-yellow-700 text-black dark:text-white font-semibold rounded-full shadow transition duration-300"
         >
           Get Started
         </Link>

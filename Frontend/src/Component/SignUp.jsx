@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import fireflyLogo from "../assets/fireflyLogo.png";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
@@ -68,6 +69,13 @@ const SignUp = () => {
       <div className="flex w-full max-w-5xl bg-white dark:bg-gray-900 shadow-2xl rounded-3xl overflow-hidden">
         {/* Left Section */}
         <div className="w-1/2 bg-gradient-to-br from-indigo-600 to-purple-600 text-white dark:from-indigo-700 dark:to-purple-700 flex flex-col items-center justify-center p-12">
+          <Link to="/" className="flex rounded-xl items-center">
+                              <img
+                                src={fireflyLogo}
+                                alt="FIRE FLY"
+                                className="mr-2 w-50 h-40 bg-indigo-400 rounded-xl my-4 justify-between items-center"
+                              />
+                              </Link>
           <h2 className="text-4xl font-extrabold mb-4">Welcome Aboard!</h2>
           <p className="text-lg text-center max-w-xs">
             Join us today and unlock a world of awesome features tailored just
@@ -91,7 +99,7 @@ const SignUp = () => {
                 onChange={handleChange}
                 type="text"
                 placeholder="John Doe"
-                className="mt-1 w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-300"
+                className="mt-1 w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white text-gray-700 rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-300"
               />
             </div>
 
@@ -104,7 +112,7 @@ const SignUp = () => {
                 onChange={handleChange}
                 type="email"
                 placeholder="you@example.com"
-                className="mt-1 w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-300"
+                className="mt-1 w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white text-gray-700 rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-300"
               />
             </div>
 
@@ -116,8 +124,8 @@ const SignUp = () => {
                 name="password"
                 onChange={handleChange}
                 type="password"
-                placeholder="********"
-                className="mt-1 w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-300"
+                placeholder="••••••••"
+                className="mt-1 w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:bg-gray-800 dark:text-white rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-300"
               />
             </div>
 

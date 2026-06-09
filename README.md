@@ -2,9 +2,9 @@
 
 FireFly is an intelligent, AI-powered health chatbot designed to support users in times of need. Whether you're feeling unwell, seeking reliable medical suggestions, or looking for expert guidance — **FireFly is here to help — anytime, anywhere.**
 
----
+----------------
 
-## 🧠 What FireFly Can Do for You
+## 🧠 What FireFly Can Do for You-------
 
 ### 🔍 Symptom Checker
 Describe how you're feeling — FireFly analyzes your symptoms using smart algorithms and offers personalized suggestions.
@@ -34,8 +34,8 @@ Say goodbye to random website searches — let **FireFly** guide you toward bett
 | Component     | Technology                |
 |---------------|----------------------------|
 | **Frontend**  | React (Vite) + Tailwind CSS |
-| **Backend**   | Spring Boot                |
-| **Database**  | MySQL                      |
+| **Backend**   | Spring Boot + Spring Security               |
+| **Database**  | MySQL + PostgreSQL                     |
 | **AI Layer**  | Generative AI API (Coming Soon) |
 
 ---
@@ -105,7 +105,6 @@ Contributions are welcome! 🎉 Feel free to fork the repository, create a new b
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
-
 ## 📩 Contact
 🔗 **GitHub**: [PralayeshMukherjee](https://github.com/PralayeshMukherjee)  
 🔗 **LinkedIn**: [Connect with me](https://www.linkedin.com/in/pralayesh-mukherjee-756a8b276/)  
