@@ -38,7 +38,7 @@ Say goodbye to random website searches — let **FireFly** guide you toward bett
 | **Database**  | MySQL + PostgreSQL                     |
 | **AI Layer**  | Generative AI API (Coming Soon) |
 
----
+--------
 
 ## 🚀 Getting Started
 
